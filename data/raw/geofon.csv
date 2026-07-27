@@ -1,4 +1,5 @@
 time,magnitude,depth,latitude,longitude,place,source
+2026-07-27 19:03:38,4.5,428.0,28.17,140.01,"Bonin Islands, Japan Region",GEOFON
 2026-07-26 05:58:51,4.7,438.0,38.42,133.53,Sea of Japan,GEOFON
 2026-07-24 18:43:05,4.6,39.0,31.58,141.51,"Southeast of Honshu, Japan",GEOFON
 2026-07-23 09:22:23,5.1,10.0,27.94,130.15,"Ryukyu Islands, Japan",GEOFON
@@ -34,5 +35,3 @@ time,magnitude,depth,latitude,longitude,place,source
 2026-06-30 10:08:14,4.6,481.0,27.6,140.0,"Bonin Islands, Japan Region",GEOFON
 2026-06-28 23:11:24,4.6,59.0,40.75,141.78,"Near East Coast of Honshu, Japan",GEOFON
 2026-06-28 05:39:32,4.6,48.0,40.23,142.34,"Near East Coast of Honshu, Japan",GEOFON
-2026-06-27 20:21:53,5.7,57.0,40.23,142.31,"Near East Coast of Honshu, Japan",GEOFON
-2026-06-27 14:15:38,4.8,10.0,31.68,141.74,"Southeast of Honshu, Japan",GEOFON
