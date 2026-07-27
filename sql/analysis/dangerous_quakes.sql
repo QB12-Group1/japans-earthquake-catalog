@@ -1,0 +1,1 @@
+-- Dangerous earthquakes: magnitude > 6 AND depth < 50
