@@ -1,9 +1,8 @@
 import re
-from datetime import datetime, timedelta
-
-import pandas as pd
 import requests
+import pandas as pd
 from bs4 import BeautifulSoup
+from datetime import datetime, timedelta
 
 end_date = datetime.today().date()
 start_date = end_date - timedelta(days=30)
@@ -76,4 +75,4 @@ for event in events:
 
 df = pd.DataFrame(rows)
 
-df.to_csv("geofon.csv", index=False, encoding="utf-8")
+df.to_csv("data/raw/geofon.csv", index=False, encoding="utf-8")
