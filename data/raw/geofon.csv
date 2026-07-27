@@ -1,1 +1,38 @@
-# Raw CSV data from GEOFON
+time,magnitude,depth,latitude,longitude,place,source
+2026-07-26 05:58:51,4.7,438.0,38.42,133.53,Sea of Japan,GEOFON
+2026-07-24 18:43:05,4.6,39.0,31.58,141.51,"Southeast of Honshu, Japan",GEOFON
+2026-07-23 09:22:23,5.1,10.0,27.94,130.15,"Ryukyu Islands, Japan",GEOFON
+2026-07-19 01:40:05,4.3,450.0,38.68,133.53,Sea of Japan,GEOFON
+2026-07-18 21:54:57,4.2,497.0,43.43,132.52,"Primor'ye, Russia",GEOFON
+2026-07-16 21:49:41,5.1,23.0,30.85,131.43,"Kyushu, Japan",GEOFON
+2026-07-16 16:04:31,4.9,10.0,34.35,141.51,"Off East Coast of Honshu, Japan",GEOFON
+2026-07-16 00:01:07,4.7,45.0,35.7,140.76,"Near East Coast of Honshu, Japan",GEOFON
+2026-07-15 12:29:38,4.8,43.0,40.21,142.5,"Near East Coast of Honshu, Japan",GEOFON
+2026-07-14 08:07:32,5.2,58.0,40.14,142.4,"Near East Coast of Honshu, Japan",GEOFON
+2026-07-14 07:44:11,5.0,20.0,40.07,143.34,"Off East Coast of Honshu, Japan",GEOFON
+2026-07-09 16:21:45,4.7,110.0,25.41,124.91,Northeast of Taiwan,GEOFON
+2026-07-09 12:58:57,5.1,10.0,33.16,135.29,Near South Coast of Western Honshu,GEOFON
+2026-07-08 07:35:51,4.8,60.0,40.12,141.99,"Near East Coast of Honshu, Japan",GEOFON
+2026-07-06 17:09:05,4.8,61.0,40.18,142.24,"Near East Coast of Honshu, Japan",GEOFON
+2026-07-06 11:29:35,4.8,59.0,40.43,141.96,"Near East Coast of Honshu, Japan",GEOFON
+2026-07-04 17:03:57,4.8,10.0,29.65,142.41,"Southeast of Honshu, Japan",GEOFON
+2026-07-04 16:57:51,4.7,10.0,29.56,142.66,"Southeast of Honshu, Japan",GEOFON
+2026-07-04 05:03:53,4.9,10.0,32.11,142.26,"Southeast of Honshu, Japan",GEOFON
+2026-07-04 02:56:15,4.6,384.0,33.41,136.84,Near South Coast of Western Honshu,GEOFON
+2026-07-03 04:04:48,6.0,10.0,26.09,125.76,Northeast of Taiwan,GEOFON
+2026-07-03 03:53:24,4.9,10.0,26.14,125.71,Northeast of Taiwan,GEOFON
+2026-07-03 01:44:52,5.1,38.0,38.84,142.19,"Near East Coast of Honshu, Japan",GEOFON
+2026-07-02 15:00:34,4.8,10.0,26.25,144.07,"Bonin Islands, Japan Region",GEOFON
+2026-07-02 11:48:29,5.2,146.0,37.24,139.28,"Eastern Honshu, Japan",GEOFON
+2026-07-02 04:48:22,4.8,62.0,40.71,142.31,"Near East Coast of Honshu, Japan",GEOFON
+2026-07-01 16:15:33,5.0,51.0,40.27,142.4,"Near East Coast of Honshu, Japan",GEOFON
+2026-07-01 14:52:05,4.6,47.0,40.26,142.43,"Near East Coast of Honshu, Japan",GEOFON
+2026-07-01 12:08:29,5.9,40.0,40.13,142.4,"Near East Coast of Honshu, Japan",GEOFON
+2026-06-30 23:40:12,4.8,10.0,32.41,131.43,"Kyushu, Japan",GEOFON
+2026-06-30 14:02:22,5.2,51.0,40.12,142.4,"Near East Coast of Honshu, Japan",GEOFON
+2026-06-30 12:39:58,4.8,10.0,28.94,131.36,Southeast of Ryukyu Islands,GEOFON
+2026-06-30 10:08:14,4.6,481.0,27.6,140.0,"Bonin Islands, Japan Region",GEOFON
+2026-06-28 23:11:24,4.6,59.0,40.75,141.78,"Near East Coast of Honshu, Japan",GEOFON
+2026-06-28 05:39:32,4.6,48.0,40.23,142.34,"Near East Coast of Honshu, Japan",GEOFON
+2026-06-27 20:21:53,5.7,57.0,40.23,142.31,"Near East Coast of Honshu, Japan",GEOFON
+2026-06-27 14:15:38,4.8,10.0,31.68,141.74,"Southeast of Honshu, Japan",GEOFON
