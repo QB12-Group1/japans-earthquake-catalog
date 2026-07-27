@@ -3,7 +3,7 @@ name = "japans-earthquake-catalog"
 version = "0.1.0"
 description = "A scraper and analyzer for Japan's earthquake data"
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.13"
 dependencies = [
     "beautifulsoup4>=4.15.0",
     "numpy>=2.5.1",
@@ -21,7 +21,7 @@ dev = ["pre-commit>=4.6.1", "pyright>=1.1.411", "ruff>=0.16.0"]
 
 [tool.ruff]
 line-length = 88
-target-version = "py314"
+target-version = "py313"
 
 [tool.ruff.lint]
 select = [
@@ -42,4 +42,4 @@ ignore = [
 
 [tool.pyright]
 typeCheckingMode = "standard"
-pythonVersion = "3.14"
+pythonVersion = "3.13"
