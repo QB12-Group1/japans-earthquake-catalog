@@ -68,7 +68,7 @@ Clone the repository and install the development environment:
 
 ```bash
 git clone https://github.com/QB12-Group1/japans-earthquake-catalog.git
-cd railway-management-system
+cd japans-earthquake-catalog
 
 uv sync --group dev
 uv run pre-commit install
