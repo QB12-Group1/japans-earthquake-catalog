@@ -161,7 +161,7 @@ def export_transformed(df: pd.DataFrame) -> None:
     df = clean_empty_attr_rows(df, "mag")
     df = clean_depth_anomalies(df)
 
-    df.to_csv(dataset_file_path, encoding="utf-8", index=False)
+    df.to_csv(dataset_file_path, index=False)
 
 
 def load_transformed() -> pd.DataFrame:
