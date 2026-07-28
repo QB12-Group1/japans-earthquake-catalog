@@ -1,5 +1,4 @@
 # Cleans/transforms USGS data
-
 import pandas as pd
 
 data_usgs = pd.read_csv("./data/raw/usgs.csv")
