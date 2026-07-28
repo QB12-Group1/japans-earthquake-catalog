@@ -1,4 +1,5 @@
 import os
+import re
 import shutil
 import time
 from datetime import UTC, datetime, timedelta
@@ -27,25 +28,18 @@ START_DATE = END_DATE - timedelta(days=30)
 
 BASE_URL = "https://www.emsc.eu/Earthquake_information/"
 OUTPUT_FILE = "data/raw/emsc.csv"
-COLUMN_NAMES = [
-    "time",
-    "magnitude",
-    "depth",
-    "latitude",
-    "longitude",
-    "place",
-    "source",
-]
+COLUMN_NAMES = ["time", "latitude", "longitude", "depth", "mag", "place", "source"]
 SOURCE_VALUE = "EMSC"
 EXPECTED_RAW_NCOLS = 10
 RAW_INDEX_MAP = {
     "time": 3,
-    "magnitude": 8,
-    "depth": 6,
     "latitude": 4,
     "longitude": 5,
+    "depth": 6,
+    "mag": 8,
     "place": 9,
 }
+DATETIME_PATTERN = re.compile(r"\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}")
 
 
 def build_driver(headless: bool = True):
@@ -251,12 +245,18 @@ def scrape():
     return headers, all_rows
 
 
+def extract_datetime(raw_text):
+    match = DATETIME_PATTERN.search(raw_text)
+    return match.group(0) if match else raw_text
+
+
 def save_to_csv(headers, rows, filename=OUTPUT_FILE):
     os.makedirs(os.path.dirname(filename), exist_ok=True)
     ncols = max((len(r) for r in rows), default=0)
 
     if ncols == EXPECTED_RAW_NCOLS:
         data = {name: [r[idx] for r in rows] for name, idx in RAW_INDEX_MAP.items()}
+        data["time"] = [extract_datetime(t) for t in data["time"]]
         data["source"] = [SOURCE_VALUE] * len(rows)
         df = pd.DataFrame(data, columns=COLUMN_NAMES)
     else:
