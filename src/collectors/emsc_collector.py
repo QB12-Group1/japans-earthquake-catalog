@@ -1,9 +1,9 @@
-import csv
 import os
 import shutil
 import time
 from datetime import UTC, datetime, timedelta
 
+import pandas as pd
 from selenium import webdriver
 from selenium.common.exceptions import (
     NoSuchElementException,
@@ -167,6 +167,8 @@ def get_page_data(driver, wait, max_attempts=5):
 
 
 def go_to_next_page(driver, next_page_number):
+    # The page-number controls on this site are <div class="pag ...">N</div>,
+    # with the currently active page marked by an extra "selview" class.
     xpaths = [
         f"//div[contains(concat(' ', normalize-space(@class), ' '), ' pag ')]"
         f"[not(contains(@class,'selview'))][normalize-space(text())='{next_page_number}']",
@@ -232,13 +234,17 @@ def scrape():
 
 def save_to_csv(headers, rows, filename=OUTPUT_FILE):
     os.makedirs(os.path.dirname(filename), exist_ok=True)
-    with open(filename, "w", newline="", encoding="utf-8-sig") as f:
-        writer = csv.writer(f)
-        if headers:
-            writer.writerow(headers)
-        for row in rows:
-            writer.writerow(row)
-    print(f"Saved {len(rows)} raw records to {filename}")
+    ncols = max((len(r) for r in rows), default=0)
+    if headers and len(headers) == ncols:
+        df = pd.DataFrame(rows, columns=headers)
+    else:
+        print(
+            f"NOTE: header count ({len(headers) if headers else 0}) does not match "
+            f"row column count ({ncols}); saving without column names."
+        )
+        df = pd.DataFrame(rows)
+    df.to_csv(filename, index=False, encoding="utf-8-sig")
+    print(f"Saved {len(df)} raw records to {filename}")
 
 
 if __name__ == "__main__":
