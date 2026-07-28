@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime
 
 def transform_genfon_data() -> pd.DataFrame:
-    raw_rows = pd.read_csv("data/raw/geofon.csv")
+    raw_rows = pd.read_csv("data/raw/geofon.csv", encoding="utf-8")
     raw_rows = raw_rows.to_dict("records")
 
     processed_rows = []
