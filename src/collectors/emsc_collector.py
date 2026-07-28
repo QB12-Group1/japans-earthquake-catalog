@@ -17,6 +17,8 @@ from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
+from config.settings import BASE_DIR
+
 MIN_LAT = 24
 MAX_LAT = 46
 MIN_LON = 123
@@ -27,7 +29,7 @@ END_DATE = datetime.now(UTC)
 START_DATE = END_DATE - timedelta(days=30)
 
 BASE_URL = "https://www.emsc.eu/Earthquake_information/"
-OUTPUT_FILE = "data/raw/emsc.csv"
+FILE_PATH = BASE_DIR / "data" / "raw" / "emsc.csv"
 COLUMN_NAMES = ["time", "latitude", "longitude", "depth", "mag", "place", "source"]
 SOURCE_VALUE = "EMSC"
 EXPECTED_RAW_NCOLS = 10
@@ -250,7 +252,7 @@ def extract_datetime(raw_text):
     return match.group(0) if match else raw_text
 
 
-def save_to_csv(headers, rows, filename=OUTPUT_FILE):
+def save_to_csv(headers, rows, filename=FILE_PATH):
     os.makedirs(os.path.dirname(filename), exist_ok=True)
     ncols = max((len(r) for r in rows), default=0)
 
@@ -269,10 +271,27 @@ def save_to_csv(headers, rows, filename=OUTPUT_FILE):
             print(f"Sample row (index by position): {list(enumerate(rows[0]))}")
         df = pd.DataFrame(rows)
 
-    df.to_csv(filename, index=False, encoding="utf-8-sig")
+    df.to_csv(filename, index=False, encoding="utf-8")
     print(f"Saved {len(df)} raw records to {filename}")
 
 
-if __name__ == "__main__":
+def export_raw() -> None:
+    if not FILE_PATH.is_file():
+        FILE_PATH.touch()
+
     headers, data = scrape()
     save_to_csv(headers, data)
+
+
+def load_raw() -> pd.DataFrame:
+    if not FILE_PATH.is_file():
+        raise FileNotFoundError(f"Dataset file not found: '{FILE_PATH}'. ")
+
+    try:
+        return pd.read_csv(FILE_PATH, encoding="utf-8")
+    except pd.errors.EmptyDataError as e:
+        raise ValueError(f"Dataset file is empty: '{FILE_PATH}'") from e
+    except pd.errors.ParserError as e:
+        raise ValueError(
+            f"Dataset file could not be parsed as CSV: '{FILE_PATH}'"
+        ) from e
