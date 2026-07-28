@@ -1,7 +1,8 @@
-import requests
-import pandas as pd
-from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
+
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
 
 end_date = datetime.today().date()
 start_date = end_date - timedelta(days=30)
@@ -24,7 +25,6 @@ params = {
 rows = []
 
 while True:
-    
     response = requests.get(url, params=params)
 
     soup = BeautifulSoup(response.text, "html.parser")
@@ -41,7 +41,7 @@ while True:
             info = event.select(info_selector)
 
             coordinate = info[0]["title"].split(",")
-            
+
             longitude = coordinate[0].strip()
             latitude = coordinate[1].strip()
 
@@ -67,15 +67,14 @@ while True:
         except Exception as error:
             print(f"Error parsing one event: {error}")
             continue
-        
+
     link = soup.select_one("span.pull-left a")
     if not link:
         break
     url = "https://geofon.gfz.de/eqinfo/" + link["href"]
     params = {}
-    
-    
-    
+
+
 df = pd.DataFrame(rows)
 
 df.to_csv("data/raw/geofon.csv", index=False, encoding="utf-8")
