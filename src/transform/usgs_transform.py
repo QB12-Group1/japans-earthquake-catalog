@@ -14,6 +14,7 @@ data_usgs = data_usgs[
         "place",
     ]
 ]
+
 data_usgs["source"] = "USGS"
 data_usgs.dropna(inplace=True)
 data_usgs.drop_duplicates(inplace=True)
