@@ -15,9 +15,7 @@ for row in raw_rows:
 
         depth = re.search(r"\d+", row["depth"]).group()
         
-        time = datetime.strptime(row["time"], "%Y-%m-%d %H:%M:%S.%f").strftime(
-                    "%Y-%m-%d %H:%M:%S"
-                )
+        time = datetime.strptime(row["time"], "%Y-%m-%d %H:%M:%S.%f").strftime("%Y-%m-%d %H:%M:%S")
 
         processed_rows.append({
             "time": time ,
