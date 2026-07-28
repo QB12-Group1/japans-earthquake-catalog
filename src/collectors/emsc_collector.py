@@ -27,6 +27,25 @@ START_DATE = END_DATE - timedelta(days=30)
 
 BASE_URL = "https://www.emsc.eu/Earthquake_information/"
 OUTPUT_FILE = "data/raw/emsc.csv"
+COLUMN_NAMES = [
+    "time",
+    "magnitude",
+    "depth",
+    "latitude",
+    "longitude",
+    "place",
+    "source",
+]
+SOURCE_VALUE = "EMSC"
+EXPECTED_RAW_NCOLS = 10
+RAW_INDEX_MAP = {
+    "time": 3,
+    "magnitude": 8,
+    "depth": 6,
+    "latitude": 4,
+    "longitude": 5,
+    "place": 9,
+}
 
 
 def build_driver(headless: bool = True):
@@ -235,14 +254,21 @@ def scrape():
 def save_to_csv(headers, rows, filename=OUTPUT_FILE):
     os.makedirs(os.path.dirname(filename), exist_ok=True)
     ncols = max((len(r) for r in rows), default=0)
-    if headers and len(headers) == ncols:
-        df = pd.DataFrame(rows, columns=headers)
+
+    if ncols == EXPECTED_RAW_NCOLS:
+        data = {name: [r[idx] for r in rows] for name, idx in RAW_INDEX_MAP.items()}
+        data["source"] = [SOURCE_VALUE] * len(rows)
+        df = pd.DataFrame(data, columns=COLUMN_NAMES)
     else:
         print(
-            f"NOTE: header count ({len(headers) if headers else 0}) does not match "
-            f"row column count ({ncols}); saving without column names."
+            f"NOTE: expected {EXPECTED_RAW_NCOLS} raw columns but got {ncols}; "
+            f"the site layout may have changed. Saving without column names instead. "
+            f"Scraped table headers were: {headers}"
         )
+        if rows:
+            print(f"Sample row (index by position): {list(enumerate(rows[0]))}")
         df = pd.DataFrame(rows)
+
     df.to_csv(filename, index=False, encoding="utf-8-sig")
     print(f"Saved {len(df)} raw records to {filename}")
 
