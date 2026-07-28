@@ -149,8 +149,6 @@ def export_transformed(df: pd.DataFrame) -> None:
     if not dataset_file_path.is_file():
         dataset_file_path.touch()
 
-    print(len(df))
-
     df = transform_datetime(df)
     df = transform_units(df)
     df = transform_mag(df)
