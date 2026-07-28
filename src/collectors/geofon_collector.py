@@ -39,23 +39,20 @@ for event in events:
         info = event.select(info_selector)
 
         coordinate = info[0]["title"].split(",")
+        
+        longitude = coordinate[0].strip()
+        latitude = coordinate[1].strip()
 
-        longitude = float(coordinate[0].replace("°E", "").strip())
-
-        latitude = float(coordinate[1].replace("°N", "").strip())
 
         place = info[0].text.strip()
 
         time = info[1].contents[0].strip()
 
-        time = datetime.strptime(time, "%Y-%m-%d %H:%M:%S.%f").strftime(
-            "%Y-%m-%d %H:%M:%S"
-        )
+
 
         depth_selector = "span[class='pull-right']"
-        depth_text = info[1].select_one(depth_selector).text.strip()
+        depth = info[1].select_one(depth_selector).text.strip()
 
-        depth = float(re.search(r"\d+", depth_text).group())
 
         rows.append(
             {
