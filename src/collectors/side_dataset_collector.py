@@ -9,7 +9,7 @@ def load_raw() -> pd.DataFrame:
         raise FileNotFoundError(f"Dataset file not found: '{dataset_file_path}'. ")
 
     try:
-        return pd.read_csv(dataset_file_path)
+        return pd.read_csv(dataset_file_path, encoding="utf-8")
     except pd.errors.EmptyDataError as e:
         raise ValueError(f"Dataset file is empty: '{dataset_file_path}'") from e
     except pd.errors.ParserError as e:

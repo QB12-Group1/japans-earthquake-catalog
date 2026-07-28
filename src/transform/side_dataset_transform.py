@@ -161,7 +161,7 @@ def export_transformed(df: pd.DataFrame) -> None:
     df = clean_empty_attr_rows(df, "mag")
     df = clean_depth_anomalies(df)
 
-    df.to_csv(dataset_file_path, index=False)
+    df.to_csv(dataset_file_path, index=False, encoding="utf-8")
 
 
 def load_transformed() -> pd.DataFrame:
@@ -170,7 +170,7 @@ def load_transformed() -> pd.DataFrame:
         raise FileNotFoundError(f"Dataset file not found: '{dataset_file_path}'. ")
 
     try:
-        return pd.read_csv(dataset_file_path)
+        return pd.read_csv(dataset_file_path, encoding="utf-8")
     except pd.errors.EmptyDataError as e:
         raise ValueError(f"Dataset file is empty: '{dataset_file_path}'") from e
     except pd.errors.ParserError as e:
