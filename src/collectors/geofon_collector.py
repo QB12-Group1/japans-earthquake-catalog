@@ -1,4 +1,3 @@
-import re
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -21,55 +20,62 @@ params = {
     "nmax": "",
 }
 
-response = requests.get(url, params=params)
-
-soup = BeautifulSoup(response.text, "html.parser")
 
 rows = []
 
-event_selector = "a[href*='event.php?id=']"
-events = soup.select(event_selector)
+while True:
+    
+    response = requests.get(url, params=params)
 
-for event in events:
-    try:
-        magnitude_selector = "span[class='magbox']"
-        magnitude = event.select_one(magnitude_selector).text.strip()
+    soup = BeautifulSoup(response.text, "html.parser")
 
-        info_selector = "div[class='col-xs-12']"
-        info = event.select(info_selector)
+    event_selector = "a[href*='event.php?id=']"
+    events = soup.select(event_selector)
 
-        coordinate = info[0]["title"].split(",")
+    for event in events:
+        try:
+            magnitude_selector = "span[class='magbox']"
+            magnitude = event.select_one(magnitude_selector).text.strip()
+
+            info_selector = "div[class='col-xs-12']"
+            info = event.select(info_selector)
+
+            coordinate = info[0]["title"].split(",")
+            
+            longitude = coordinate[0].strip()
+            latitude = coordinate[1].strip()
+
+            place = info[0].text.strip()
+
+            time = info[1].contents[0].strip()
+
+            depth_selector = "span[class='pull-right']"
+            depth = info[1].select_one(depth_selector).text.strip()
+
+            rows.append(
+                {
+                    "time": time,
+                    "magnitude": magnitude,
+                    "depth": depth,
+                    "latitude": latitude,
+                    "longitude": longitude,
+                    "place": place,
+                    "source": "GEOFON",
+                }
+            )
+
+        except Exception as error:
+            print(f"Error parsing one event: {error}")
+            continue
         
-        longitude = coordinate[0].strip()
-        latitude = coordinate[1].strip()
-
-
-        place = info[0].text.strip()
-
-        time = info[1].contents[0].strip()
-
-
-
-        depth_selector = "span[class='pull-right']"
-        depth = info[1].select_one(depth_selector).text.strip()
-
-
-        rows.append(
-            {
-                "time": time,
-                "magnitude": magnitude,
-                "depth": depth,
-                "latitude": latitude,
-                "longitude": longitude,
-                "place": place,
-                "source": "GEOFON",
-            }
-        )
-
-    except Exception as error:
-        print(f"Error parsing one event: {error}")
-        continue
-
+    link = soup.select_one("span.pull-left a")
+    if not link:
+        break
+    url = "https://geofon.gfz.de/eqinfo/" + link["href"]
+    params = {}
+    
+    
+    
 df = pd.DataFrame(rows)
 
 df.to_csv("data/raw/geofon.csv", index=False, encoding="utf-8")
