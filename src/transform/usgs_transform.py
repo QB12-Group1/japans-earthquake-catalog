@@ -33,7 +33,7 @@ def export_transformed(df: pd.DataFrame) -> None:
 
     df = transform_datetime(df)
     df = transform_columns(df)
-    df.to_csv(FILE_PATH, index=False)
+    df.to_csv(FILE_PATH, encoding="utf-8", index=False)
 
 
 def load_transformed() -> pd.DataFrame:
@@ -41,7 +41,7 @@ def load_transformed() -> pd.DataFrame:
         raise FileNotFoundError(f"Dataset file not found: '{FILE_PATH}'. ")
 
     try:
-        return pd.read_csv(FILE_PATH)
+        return pd.read_csv(FILE_PATH, encoding="utf-8")
     except pd.errors.EmptyDataError as e:
         raise ValueError(f"Dataset file is empty: '{FILE_PATH}'") from e
     except pd.errors.ParserError as e:

@@ -33,7 +33,7 @@ def export_raw() -> None:
     )
 
     try:
-        with open(FILE_PATH, mode="w") as file:
+        with open(FILE_PATH, mode="w", encoding="utf-8") as file:
             file.write(response.text)
     except OSError as e:
         raise ValueError(f"Could not open: '{FILE_PATH}'") from e
@@ -44,7 +44,7 @@ def load_raw() -> pd.DataFrame:
         raise FileNotFoundError(f"Dataset file not found: '{FILE_PATH}'. ")
 
     try:
-        return pd.read_csv(FILE_PATH)
+        return pd.read_csv(FILE_PATH, encoding="utf-8")
     except pd.errors.EmptyDataError as e:
         raise ValueError(f"Dataset file is empty: '{FILE_PATH}'") from e
     except pd.errors.ParserError as e:
