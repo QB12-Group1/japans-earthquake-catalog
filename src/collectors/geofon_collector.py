@@ -43,16 +43,12 @@ for event in events:
         longitude = coordinate[0].strip()
         latitude = coordinate[1].strip()
 
-
         place = info[0].text.strip()
 
         time = info[1].contents[0].strip()
 
-
-
         depth_selector = "span[class='pull-right']"
         depth = info[1].select_one(depth_selector).text.strip()
-
 
         rows.append(
             {
