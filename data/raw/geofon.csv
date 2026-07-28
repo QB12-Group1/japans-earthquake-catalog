@@ -1,37 +1,41 @@
-time,magnitude,depth,latitude,longitude,place,source
-2026-07-27 19:03:38.6,4.5,428*,28.17°N,140.01°E,"Bonin Islands, Japan Region",GEOFON
-2026-07-26 05:58:51.7,4.7,438*,38.42°N,133.53°E,Sea of Japan,GEOFON
-2026-07-24 18:43:05.7,4.6,39*,31.58°N,141.51°E,"Southeast of Honshu, Japan",GEOFON
-2026-07-23 09:22:23.9,5.1,10*,27.94°N,130.15°E,"Ryukyu Islands, Japan",GEOFON
-2026-07-19 01:40:05.2,4.3,450*,38.68°N,133.53°E,Sea of Japan,GEOFON
-2026-07-18 21:54:57.2,4.2,497*,43.43°N,132.52°E,"Primor'ye, Russia",GEOFON
-2026-07-16 21:49:41.9,5.1,23*,30.85°N,131.43°E,"Kyushu, Japan",GEOFON
-2026-07-16 16:04:31.2,4.9,10*,34.35°N,141.51°E,"Off East Coast of Honshu, Japan",GEOFON
-2026-07-16 00:01:07.2,4.7,45*,35.70°N,140.76°E,"Near East Coast of Honshu, Japan",GEOFON
-2026-07-15 12:29:38.1,4.8,43*,40.21°N,142.50°E,"Near East Coast of Honshu, Japan",GEOFON
-2026-07-14 08:07:32.2,5.2,58*,40.14°N,142.40°E,"Near East Coast of Honshu, Japan",GEOFON
-2026-07-14 07:44:11.1,5.0,20*,40.07°N,143.34°E,"Off East Coast of Honshu, Japan",GEOFON
-2026-07-09 16:21:45.8,4.7,110*,25.41°N,124.91°E,Northeast of Taiwan,GEOFON
-2026-07-09 12:58:57.9,5.1,10*,33.16°N,135.29°E,Near South Coast of Western Honshu,GEOFON
-2026-07-08 07:35:51.9,4.8,60*,40.12°N,141.99°E,"Near East Coast of Honshu, Japan",GEOFON
-2026-07-06 17:09:05.2,4.8,61*,40.18°N,142.24°E,"Near East Coast of Honshu, Japan",GEOFON
-2026-07-06 11:29:35.6,4.8,59*,40.43°N,141.96°E,"Near East Coast of Honshu, Japan",GEOFON
-2026-07-04 17:03:57.8,4.8,10*,29.65°N,142.41°E,"Southeast of Honshu, Japan",GEOFON
-2026-07-04 16:57:51.1,4.7,10*,29.56°N,142.66°E,"Southeast of Honshu, Japan",GEOFON
-2026-07-04 05:03:53.7,4.9,10*,32.11°N,142.26°E,"Southeast of Honshu, Japan",GEOFON
-2026-07-04 02:56:15.4,4.6,384*,33.41°N,136.84°E,Near South Coast of Western Honshu,GEOFON
-2026-07-03 04:04:48.3,6.0,10*,26.09°N,125.76°E,Northeast of Taiwan,GEOFON
-2026-07-03 03:53:24.5,4.9,10*,26.14°N,125.71°E,Northeast of Taiwan,GEOFON
-2026-07-03 01:44:52.2,5.1,38*,38.84°N,142.19°E,"Near East Coast of Honshu, Japan",GEOFON
-2026-07-02 15:00:34.6,4.8,10*,26.25°N,144.07°E,"Bonin Islands, Japan Region",GEOFON
-2026-07-02 11:48:29.8,5.2,146*,37.24°N,139.28°E,"Eastern Honshu, Japan",GEOFON
-2026-07-02 04:48:22.1,4.8,62*,40.71°N,142.31°E,"Near East Coast of Honshu, Japan",GEOFON
-2026-07-01 16:15:33.1,5.0,51*,40.27°N,142.40°E,"Near East Coast of Honshu, Japan",GEOFON
-2026-07-01 14:52:05.1,4.6,47*,40.26°N,142.43°E,"Near East Coast of Honshu, Japan",GEOFON
-2026-07-01 12:08:29.6,5.9,40*,40.13°N,142.40°E,"Near East Coast of Honshu, Japan",GEOFON
-2026-06-30 23:40:12.6,4.8,10*,32.41°N,131.43°E,"Kyushu, Japan",GEOFON
-2026-06-30 14:02:22.9,5.2,51*,40.12°N,142.40°E,"Near East Coast of Honshu, Japan",GEOFON
-2026-06-30 12:39:58.1,4.8,10*,28.94°N,131.36°E,Southeast of Ryukyu Islands,GEOFON
-2026-06-30 10:08:14.8,4.6,481*,27.60°N,140.00°E,"Bonin Islands, Japan Region",GEOFON
-2026-06-28 23:11:24.8,4.6,59*,40.75°N,141.78°E,"Near East Coast of Honshu, Japan",GEOFON
-2026-06-28 05:39:32.7,4.6,48*,40.23°N,142.34°E,"Near East Coast of Honshu, Japan",GEOFON
+time,latitude,longitude,depth,mag,place
+2026-07-28 14:01:58.5,32.51°N,130.66°E,10*,4.9,"Kyushu, Japan"
+2026-07-28 08:18:54.9,32.35°N,130.55°E,10*,5.2,"Kyushu, Japan"
+2026-07-28 08:08:35.2,32.43°N,130.81°E,10*,5.7,"Kyushu, Japan"
+2026-07-28 07:27:14.9,32.66°N,130.65°E,10*,6.8,"Kyushu, Japan"
+2026-07-27 19:03:38.6,28.17°N,140.01°E,428*,4.5,"Bonin Islands, Japan Region"
+2026-07-26 05:58:51.7,38.42°N,133.53°E,438*,4.7,Sea of Japan
+2026-07-24 18:43:05.7,31.58°N,141.51°E,39*,4.6,"Southeast of Honshu, Japan"
+2026-07-23 09:22:23.9,27.94°N,130.15°E,10*,5.1,"Ryukyu Islands, Japan"
+2026-07-19 01:40:05.2,38.68°N,133.53°E,450*,4.3,Sea of Japan
+2026-07-18 21:54:57.2,43.43°N,132.52°E,497*,4.2,"Primor'ye, Russia"
+2026-07-16 21:49:41.9,30.85°N,131.43°E,23*,5.1,"Kyushu, Japan"
+2026-07-16 16:04:31.2,34.35°N,141.51°E,10*,4.9,"Off East Coast of Honshu, Japan"
+2026-07-16 00:01:07.2,35.70°N,140.76°E,45*,4.7,"Near East Coast of Honshu, Japan"
+2026-07-15 12:29:38.1,40.21°N,142.50°E,43*,4.8,"Near East Coast of Honshu, Japan"
+2026-07-14 08:07:32.2,40.14°N,142.40°E,58*,5.2,"Near East Coast of Honshu, Japan"
+2026-07-14 07:44:11.1,40.07°N,143.34°E,20*,5.0,"Off East Coast of Honshu, Japan"
+2026-07-09 16:21:45.8,25.41°N,124.91°E,110*,4.7,Northeast of Taiwan
+2026-07-09 12:58:57.9,33.16°N,135.29°E,10*,5.1,Near South Coast of Western Honshu
+2026-07-08 07:35:51.9,40.12°N,141.99°E,60*,4.8,"Near East Coast of Honshu, Japan"
+2026-07-06 17:09:05.2,40.18°N,142.24°E,61*,4.8,"Near East Coast of Honshu, Japan"
+2026-07-06 11:29:35.6,40.43°N,141.96°E,59*,4.8,"Near East Coast of Honshu, Japan"
+2026-07-04 17:03:57.8,29.65°N,142.41°E,10*,4.8,"Southeast of Honshu, Japan"
+2026-07-04 16:57:51.1,29.56°N,142.66°E,10*,4.7,"Southeast of Honshu, Japan"
+2026-07-04 05:03:53.7,32.11°N,142.26°E,10*,4.9,"Southeast of Honshu, Japan"
+2026-07-04 02:56:15.4,33.41°N,136.84°E,384*,4.6,Near South Coast of Western Honshu
+2026-07-03 04:04:48.3,26.09°N,125.76°E,10*,6.0,Northeast of Taiwan
+2026-07-03 03:53:24.5,26.14°N,125.71°E,10*,4.9,Northeast of Taiwan
+2026-07-03 01:44:52.2,38.84°N,142.19°E,38*,5.1,"Near East Coast of Honshu, Japan"
+2026-07-02 15:00:34.6,26.25°N,144.07°E,10*,4.8,"Bonin Islands, Japan Region"
+2026-07-02 11:48:29.8,37.24°N,139.28°E,146*,5.2,"Eastern Honshu, Japan"
+2026-07-02 04:48:22.1,40.71°N,142.31°E,62*,4.8,"Near East Coast of Honshu, Japan"
+2026-07-01 16:15:33.1,40.27°N,142.40°E,51*,5.0,"Near East Coast of Honshu, Japan"
+2026-07-01 14:52:05.1,40.26°N,142.43°E,47*,4.6,"Near East Coast of Honshu, Japan"
+2026-07-01 12:08:29.6,40.13°N,142.40°E,40*,5.9,"Near East Coast of Honshu, Japan"
+2026-06-30 23:40:12.6,32.41°N,131.43°E,10*,4.8,"Kyushu, Japan"
+2026-06-30 14:02:22.9,40.12°N,142.40°E,51*,5.2,"Near East Coast of Honshu, Japan"
+2026-06-30 12:39:58.1,28.94°N,131.36°E,10*,4.8,Southeast of Ryukyu Islands
+2026-06-30 10:08:14.8,27.60°N,140.00°E,481*,4.6,"Bonin Islands, Japan Region"
+2026-06-28 23:11:24.8,40.75°N,141.78°E,59*,4.6,"Near East Coast of Honshu, Japan"
+2026-06-28 05:39:32.7,40.23°N,142.34°E,48*,4.6,"Near East Coast of Honshu, Japan"
