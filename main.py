@@ -1,6 +1,8 @@
 import argparse
 
+from config.settings import DATABASE_URL
 from src.database.loader import drop_table, load_to_sql
+from src.database.object import Database
 from src.transform.merge import (
     get_emsc_df,
     get_geofon_df,
@@ -32,6 +34,8 @@ def main():
     for df_loader in df_loaders:
         df = df_loader(args.fetch)
         load_to_sql(df)
+
+    db = Database(DATABASE_URL)  # noqa: F841
 
 
 if __name__ == "__main__":

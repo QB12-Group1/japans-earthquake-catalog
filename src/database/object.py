@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Iterator
 from contextlib import contextmanager
+from pathlib import Path
 from typing import NamedTuple
 
 import psycopg2
@@ -19,6 +20,13 @@ class Database:
 
     def run_many(self, query: str, params=()) -> None:
         self._cursor.executemany(query, params)
+
+    def run_script(self, script_path: str) -> None:
+        path = Path(script_path)
+        if not path.is_file():
+            raise ValueError(f"Script file not found: '{path}'.")
+        script = path.read_text()
+        self.run(script)
 
     def one(self, query: str, params=()) -> NamedTuple | None:
         self._cursor.execute(query, params)
