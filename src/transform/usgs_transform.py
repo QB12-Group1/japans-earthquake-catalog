@@ -5,6 +5,7 @@ from datetime import datetime
 import pandas as pd
 
 from config.settings import BASE_DIR
+from src.collectors.usgs_collector import load_raw
 
 FILE_PATH = BASE_DIR / "data" / "processed" / "usgs.csv"
 
@@ -27,10 +28,11 @@ def transform_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def export_transformed(df: pd.DataFrame) -> None:
+def export_transformed() -> None:
     if not FILE_PATH.is_file():
         FILE_PATH.touch()
 
+    df = load_raw()
     df = transform_datetime(df)
     df = transform_columns(df)
     df.to_csv(FILE_PATH, encoding="utf-8", index=False)

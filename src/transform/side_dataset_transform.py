@@ -5,6 +5,7 @@ import pandas as pd
 from word2number.w2n import word_to_num
 
 from config.settings import BASE_DIR
+from src.collectors.side_dataset_collector import load_raw
 
 
 def clean_invalid_depth_rows(df: pd.DataFrame) -> pd.DataFrame:
@@ -144,11 +145,12 @@ def transform_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df.drop(columns=["notes", "status"])
 
 
-def export_transformed(df: pd.DataFrame) -> None:
+def export_transformed() -> None:
     dataset_file_path = BASE_DIR / "data" / "processed" / "side_dataset.csv"
     if not dataset_file_path.is_file():
         dataset_file_path.touch()
 
+    df = load_raw()
     df = transform_datetime(df)
     df = transform_units(df)
     df = transform_mag(df)

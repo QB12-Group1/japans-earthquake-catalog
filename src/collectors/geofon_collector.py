@@ -1,7 +1,8 @@
-import requests
-import pandas as pd
-from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
+
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
 
 
 def extract_raw() -> pd.DataFrame:
@@ -25,7 +26,7 @@ def extract_raw() -> pd.DataFrame:
     rows = []
 
     while True:
-        response = requests.get(url, params=params , timeout=10 )
+        response = requests.get(url, params=params, timeout=10)
 
         soup = BeautifulSoup(response.text, "html.parser")
 
@@ -72,13 +73,13 @@ def extract_raw() -> pd.DataFrame:
             break
         url = "https://geofon.gfz.de/eqinfo/" + link["href"]
         params = {}
-        
+
     return pd.DataFrame(rows)
 
 
-def export_raw(df: pd.DataFrame) -> None:
+def export_raw() -> None:
     file_path = "data/raw/geofon.csv"
-
+    df = extract_raw()
     df.to_csv(file_path, index=False, encoding="utf-8")
 
 
@@ -86,7 +87,7 @@ def load_raw() -> pd.DataFrame:
     file_path = "data/raw/geofon.csv"
 
     try:
-        return pd.read_csv(file_path ,encoding="utf-8")
+        return pd.read_csv(file_path, encoding="utf-8")
     except FileNotFoundError as e:
         raise FileNotFoundError(f"Dataset file not found: '{file_path}'.") from e
     except pd.errors.EmptyDataError as e:
