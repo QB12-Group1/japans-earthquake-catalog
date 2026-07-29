@@ -37,6 +37,10 @@ def main():
 
     db = Database(DATABASE_URL)  # noqa: F841
 
+    # Alter data types for time, latitude, longitude, depth, and mag columns
+    with db.transaction():
+        db.run_script("transform/alter_column_types.sql")
+
 
 if __name__ == "__main__":
     main()
