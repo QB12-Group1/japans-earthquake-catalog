@@ -42,13 +42,13 @@ def main():
 
     # Alter data types for time, latitude, longitude, depth, and mag columns
     with db.transaction():
+        report = get_table_report(db)
+        print_table_report(report)
+
         db.run_script("transform/alter_column_types.sql")
 
         db.run_script("transform/column_month.sql")
         db.run_script("transform/remove_column.sql")
-
-        report = get_table_report(db)
-        print_table_report(report)
 
 
 if __name__ == "__main__":
