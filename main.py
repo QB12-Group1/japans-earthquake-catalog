@@ -9,7 +9,7 @@ from src.transform.merge import get_merged_sources_df
 
 def print_table_report(report: dict[str, str | list[tuple[str, str]]]) -> None:
     columns_str = "\n".join(
-        f"\t{column_name}: {column_type}"
+        f"    {column_name}: {column_type}"
         for column_name, column_type in report["columns"]
     )
     print(f"""columns count: {report["column_count"]}
@@ -42,13 +42,13 @@ def main():
 
     # Alter data types for time, latitude, longitude, depth, and mag columns
     with db.transaction():
+        report = get_table_report(db)
+        print_table_report(report)
+
         db.run_script("transform/alter_column_types.sql")
 
         db.run_script("transform/column_month.sql")
         db.run_script("transform/remove_column.sql")
-
-        report = get_table_report(db)
-        print_table_report(report)
 
 
 if __name__ == "__main__":
