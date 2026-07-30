@@ -1,6 +1,7 @@
 import re
 from datetime import datetime
 
+import numpy as np
 import pandas as pd
 from word2number.w2n import word_to_num
 
@@ -8,52 +9,19 @@ from config.settings import BASE_DIR
 from src.collectors.side_dataset_collector import load_raw
 
 
-def clean_invalid_depth_rows(df: pd.DataFrame) -> pd.DataFrame:
-    try:
-        temp_depth = pd.to_numeric(df["depth"], errors="coerce")
-        condition = temp_depth.isna() | (temp_depth > 0)  # pyright: ignore[reportOperatorIssue, reportAttributeAccessIssue]
-        return df.loc[condition]
-    except Exception as e:
-        raise ValueError("Failed to remove reports with invalid depths.") from e
+def transform_not_coordinated_rows(df: pd.DataFrame) -> pd.DataFrame:
+    df["latitude"] = pd.to_numeric(df["latitude"], errors="coerce")
+    df["longitude"] = pd.to_numeric(df["longitude"], errors="coerce")
+    return df
 
 
-def clean_empty_attr_rows(df: pd.DataFrame, attr: str) -> pd.DataFrame:
-    condition = df[attr].notna()
-    return df.loc[condition]
+def transform_unsigned_attr(df: pd.DataFrame, attr: str) -> pd.DataFrame:
+    df[attr] = pd.to_numeric(df[attr], errors="coerce")
+    df[attr] = df[attr].apply(lambda n: np.nan if n <= 0 else n)
+    return df
 
 
-def clean_not_coordinated_rows(df: pd.DataFrame) -> pd.DataFrame:
-    try:
-        temp_latitude = pd.to_numeric(df["latitude"], errors="coerce")
-        temp_longitude = pd.to_numeric(df["longitude"], errors="coerce")
-        condition = temp_latitude.notna() & temp_longitude.notna()  # pyright: ignore[reportAttributeAccessIssue]
-        return df.loc[condition]
-    except Exception as e:
-        raise ValueError("Failed to remove reports without coordinates.") from e
-
-
-def clean_duplicates(df: pd.DataFrame) -> pd.DataFrame:
-    try:
-        indicies = [
-            "latitude",
-            "longitude",
-            "depth",
-            "mag",
-            "place",
-        ]
-        return df.drop_duplicates(indicies)
-    except TypeError as e:
-        raise ValueError("Failed to remove duplicate reports.") from e
-
-
-def clean_depth_anomalies(df: pd.DataFrame) -> pd.DataFrame:
-    depth_min_km, depth_max_km = 10, 750
-    temp_depth = pd.to_numeric(df["depth"], errors="coerce")
-    condition = (temp_depth >= depth_min_km) & (temp_depth <= depth_max_km)  # pyright: ignore[reportOperatorIssue]
-    return df.loc[condition]
-
-
-def transform_mag(df: pd.DataFrame) -> pd.DataFrame:
+def transform_mag_number_words(df: pd.DataFrame) -> pd.DataFrame:
     def convert_text_to_num(value: str) -> float:
         try:
             return float(value)
@@ -142,7 +110,7 @@ def transform_datetime(df: pd.DataFrame) -> pd.DataFrame:
 
 def transform_columns(df: pd.DataFrame) -> pd.DataFrame:
     df["source"] = "DATASET"
-    return df.drop(columns=["notes", "status"])
+    return df
 
 
 def export_transformed() -> None:
@@ -152,16 +120,12 @@ def export_transformed() -> None:
 
     df = load_raw()
     df = transform_datetime(df)
+    df = transform_not_coordinated_rows(df)
     df = transform_units(df)
-    df = transform_mag(df)
+    df = transform_mag_number_words(df)
+    df = transform_unsigned_attr(df, "depth")
+    df = transform_unsigned_attr(df, "mag")
     df = transform_columns(df)
-
-    df = clean_duplicates(df)
-    df = clean_not_coordinated_rows(df)
-    df = clean_invalid_depth_rows(df)
-    df = clean_empty_attr_rows(df, "depth")
-    df = clean_empty_attr_rows(df, "mag")
-    df = clean_depth_anomalies(df)
 
     df.to_csv(dataset_file_path, index=False, encoding="utf-8")
 
