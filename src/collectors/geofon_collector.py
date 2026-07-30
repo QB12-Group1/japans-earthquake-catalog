@@ -36,22 +36,36 @@ def extract_raw() -> pd.DataFrame:
         for event in events:
             try:
                 magnitude_selector = "span[class='magbox']"
-                magnitude = event.select_one(magnitude_selector).text.strip()
+                magnitude_element = event.select_one(magnitude_selector)
+
+                if magnitude_element is None:
+                    raise ValueError("Magnitude element not found.")
+
+                magnitude = magnitude_element.text.strip()
 
                 info_selector = "div[class='col-xs-12']"
                 info = event.select(info_selector)
 
-                coordinate = info[0]["title"].split(",")
+                title = str(info[0]["title"])
+
+                coordinate = title.split(",")
 
                 longitude = coordinate[0].strip()
                 latitude = coordinate[1].strip()
 
                 place = info[0].text.strip()
 
-                time = info[1].contents[0].strip()
+                time = str(info[1].contents[0])
+
+                time = time.strip()
 
                 depth_selector = "span[class='pull-right']"
-                depth = info[1].select_one(depth_selector).text.strip()
+                depth_element = info[1].select_one(depth_selector)
+
+                if depth_element is None:
+                    raise ValueError("Depth element not found.")
+
+                depth = depth_element.text.strip()
 
                 rows.append(
                     {
@@ -71,7 +85,7 @@ def extract_raw() -> pd.DataFrame:
         link = soup.select_one("span.pull-left a")
         if not link:
             break
-        url = "https://geofon.gfz.de/eqinfo/" + link["href"]
+        url = "https://geofon.gfz.de/eqinfo/" + str(link["href"])
         params = {}
 
     return pd.DataFrame(rows)
