@@ -1,0 +1,4 @@
+SELECT *
+FROM earthquakes
+ORDER BY mag DESC, TIME DESC
+LIMIT 10;

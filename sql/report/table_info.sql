@@ -13,12 +13,8 @@ DECLARE
     row_count    BIGINT;
     column_count BIGINT;
 BEGIN
-    -- Get the record count once
     SELECT COUNT(*) INTO row_count FROM earthquakes;
     SELECT COUNT(*) INTO column_count FROM information_schema.columns where table_name = 'earthquakes';
-
-
-    -- Return a set of rows, joining columns with the record count
     RETURN QUERY
         SELECT column_count,
                column_name::VARCHAR,
