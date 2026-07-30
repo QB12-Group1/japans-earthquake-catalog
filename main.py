@@ -9,7 +9,7 @@ from src.transform.merge import get_merged_sources_df
 
 def print_table_report(report: dict[str, str | list[tuple[str, str]]]) -> None:
     columns_str = "\n".join(
-        f"    {column_name}: {column_type}"
+        f"\t{column_name}: {column_type}"
         for column_name, column_type in report["columns"]
     )
     print(f"""columns count: {report["column_count"]}
