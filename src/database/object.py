@@ -22,12 +22,16 @@ class Database:
     def run_many(self, query: str, params=()) -> None:
         self._cursor.executemany(query, params)
 
-    def run_script(self, script_path: str) -> None:
+    def run_script(self, script_path: str) -> list[NamedTuple] | None:
         path = BASE_DIR / "sql" / script_path
         if not path.is_file():
             raise ValueError(f"Script file not found: '{path}'.")
         script = path.read_text()
+
         self.run(script)
+        if self._cursor.description:
+            return self._cursor.fetchall()
+        return None
 
     def one(self, query: str, params=()) -> NamedTuple | None:
         self._cursor.execute(query, params)
