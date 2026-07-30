@@ -1,4 +1,7 @@
 time,latitude,longitude,depth,mag,place,source
+2026-07-29 20:16:36,32.58,130.56,10,4.9,"Kyushu, Japan",GEOFON
+2026-07-29 13:19:38,32.46,130.44,10,5.5,"Kyushu, Japan",GEOFON
+2026-07-29 11:47:53,32.75,130.42,10,4.7,"Kyushu, Japan",GEOFON
 2026-07-28 14:01:58,32.51,130.66,10,4.9,"Kyushu, Japan",GEOFON
 2026-07-28 08:18:54,32.35,130.55,10,5.2,"Kyushu, Japan",GEOFON
 2026-07-28 08:08:35,32.43,130.81,10,5.7,"Kyushu, Japan",GEOFON

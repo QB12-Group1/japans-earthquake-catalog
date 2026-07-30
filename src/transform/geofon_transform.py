@@ -15,7 +15,12 @@ def transform_genfon_data() -> pd.DataFrame:
             longitude = float(row["longitude"].replace("°E", "").strip())
             latitude = float(row["latitude"].replace("°N", "").strip())
 
-            depth = re.search(r"\d+", row["depth"]).group()
+            depth_match = re.search(r"\d+", row["depth"])
+
+            if depth_match is None:
+                raise ValueError("Invalid depth")
+
+            depth = depth_match.group()
 
             time = datetime.strptime(row["time"], "%Y-%m-%d %H:%M:%S.%f").strftime(
                 "%Y-%m-%d %H:%M:%S"
