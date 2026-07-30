@@ -3,7 +3,19 @@ import argparse
 from config.settings import DATABASE_URL
 from src.database.loader import load_to_sql
 from src.database.object import Database
+from src.database.report import get_table_report
 from src.transform.merge import get_merged_sources_df
+
+
+def print_table_report(report: dict[str, str | list[tuple[str, str]]]) -> None:
+    columns_str = "\n".join(
+        f"\t{column_name}: {column_type}"
+        for column_name, column_type in report["columns"]
+    )
+    print(f"""columns count: {report["column_count"]}
+total_records: {report["total_records"]}
+columns:
+{columns_str}""")
 
 
 def main():
@@ -30,6 +42,9 @@ def main():
 
     # Alter data types for time, latitude, longitude, depth, and mag columns
     with db.transaction():
+        report = get_table_report(db)
+        print_table_report(report)
+
         db.run_script("transform/alter_column_types.sql")
 
         db.run_script("transform/column_month.sql")
