@@ -44,3 +44,8 @@ def get_emsc_df(collect: bool) -> pd.DataFrame:
     if collect:
         ec.export_raw()  # TODO: this should be transformed
     return ec.load_raw()
+
+
+def get_merged_sources_df(collect: bool) -> pd.DataFrame:
+    loaders = [get_usgs_df, get_side_dataset_df, get_geofon_df, get_emsc_df]
+    return pd.concat([loader(collect) for loader in loaders])

@@ -1,14 +1,9 @@
 import argparse
 
 from config.settings import DATABASE_URL
-from src.database.loader import drop_table, load_to_sql
+from src.database.loader import load_to_sql
 from src.database.object import Database
-from src.transform.merge import (
-    get_emsc_df,
-    get_geofon_df,
-    get_side_dataset_df,
-    get_usgs_df,
-)
+from src.transform.merge import get_merged_sources_df
 
 
 def main():
@@ -27,15 +22,11 @@ def main():
         ),
     )
     args = arg_parser.parse_args()
-    if args.fetch:
-        drop_table()
 
-    df_loaders = [get_usgs_df, get_side_dataset_df, get_geofon_df, get_emsc_df]
-    for df_loader in df_loaders:
-        df = df_loader(args.fetch)
-        load_to_sql(df)
+    merged_df = get_merged_sources_df(args.fetch)
+    load_to_sql(merged_df)
 
-    db = Database(DATABASE_URL)  # noqa: F841
+    db = Database(DATABASE_URL)
 
     # Alter data types for time, latitude, longitude, depth, and mag columns
     with db.transaction():
