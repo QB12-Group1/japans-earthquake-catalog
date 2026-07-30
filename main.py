@@ -32,6 +32,9 @@ def main():
     with db.transaction():
         db.run_script("transform/alter_column_types.sql")
 
+        db.run_script("transform/column_month.sql")
+        db.run_script("transform/remove_column.sql")
+
 
 if __name__ == "__main__":
     main()
