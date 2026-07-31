@@ -1,1 +1,3 @@
--- Dangerous earthquakes: magnitude > 6 AND depth < 50
+SELECT *
+FROM earthquakes
+WHERE mag > 6 AND depth < 50;
