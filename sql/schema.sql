@@ -1,5 +1,6 @@
 CREATE TABLE earthquakes
 (
+    id                SERIAL PRIMARY KEY,
     time              TEXT,
     latitude          TEXT,
     longitude         TEXT,
