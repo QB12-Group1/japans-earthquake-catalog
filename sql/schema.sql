@@ -1,0 +1,27 @@
+CREATE TABLE earthquakes
+(
+    time              TEXT,
+    latitude          TEXT,
+    longitude         TEXT,
+    depth             TEXT,
+    mag               TEXT,
+    "magType"         TEXT,
+    nst               TEXT,
+    gap               TEXT,
+    dmin              TEXT,
+    rms               TEXT,
+    net               TEXT,
+    eid               TEXT,
+    updated           TEXT,
+    place             TEXT,
+    type              TEXT,
+    "horizontalError" TEXT,
+    "depthError"      TEXT,
+    "magError"        TEXT,
+    "magNst"          TEXT,
+    "locationSource"  TEXT,
+    "magSource"       TEXT,
+    source            TEXT,
+    notes             TEXT,
+    status            TEXT
+);

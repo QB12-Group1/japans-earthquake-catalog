@@ -25,7 +25,7 @@ def transform_datetime(df: pd.DataFrame) -> pd.DataFrame:
 
 def transform_columns(df: pd.DataFrame) -> pd.DataFrame:
     df["source"] = "USGS"
-    return df
+    return df.rename(columns={"id": "eid"})
 
 
 def export_transformed() -> None:

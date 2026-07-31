@@ -1,5 +1,5 @@
 time,latitude,longitude,depth,mag,place
-2026-07-30 13:47:39.6,32.77°N,130.67°E,10*,5.0,"Kyushu, Japan"
+2026-07-30 13:47:39.5,32.74°N,130.68°E,10*,5.0,"Kyushu, Japan"
 2026-07-29 20:16:36.7,32.58°N,130.56°E,10*,4.9,"Kyushu, Japan"
 2026-07-29 13:19:38.1,32.46°N,130.44°E,10*,5.5,"Kyushu, Japan"
 2026-07-29 11:47:53.7,32.75°N,130.42°E,10*,4.7,"Kyushu, Japan"
@@ -37,7 +37,3 @@ time,latitude,longitude,depth,mag,place
 2026-07-01 16:15:33.1,40.27°N,142.40°E,51*,5.0,"Near East Coast of Honshu, Japan"
 2026-07-01 14:52:05.1,40.26°N,142.43°E,47*,4.6,"Near East Coast of Honshu, Japan"
 2026-07-01 12:08:29.6,40.13°N,142.40°E,40*,5.9,"Near East Coast of Honshu, Japan"
-2026-06-30 23:40:12.6,32.41°N,131.43°E,10*,4.8,"Kyushu, Japan"
-2026-06-30 14:02:22.9,40.12°N,142.40°E,51*,5.2,"Near East Coast of Honshu, Japan"
-2026-06-30 12:39:58.1,28.94°N,131.36°E,10*,4.8,Southeast of Ryukyu Islands
-2026-06-30 10:08:14.8,27.60°N,140.00°E,481*,4.6,"Bonin Islands, Japan Region"
