@@ -56,11 +56,13 @@ def main():
         print_table_report(report)
 
         db.run_script("transform/alter_column_types.sql")
+        db.run_script("transform/round_float_values.sql")
         db.run_script("transform/clean_incomplete_reports.sql")
         db.run_script("transform/clean_reports_with_error.sql")
         db.run_script("transform/clean_report_anomalies.sql")
 
         db.run_script("transform/column_month.sql")
+        db.run_script("transform/trim_place_str.sql")
         db.run_script("transform/add_region_column.sql")
         db.run_script("transform/remove_column.sql")
         db.run_script("transform/create_indexes.sql")
