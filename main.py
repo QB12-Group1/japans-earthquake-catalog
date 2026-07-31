@@ -1,10 +1,15 @@
 import argparse
 
 from config.settings import DATABASE_URL
-from src.database.loader import load_to_sql
+from src.database.loader import create_table, drop_table, load_to_sql
 from src.database.object import Database
 from src.database.report import get_table_report
-from src.transform.merge import get_merged_sources_df
+from src.transform.merge import (
+    get_emsc_df,
+    get_geofon_df,
+    get_side_dataset_df,
+    get_usgs_df,
+)
 
 
 def print_table_report(report: dict[str, str | list[tuple[str, str]]]) -> None:
@@ -35,8 +40,13 @@ def main():
     )
     args = arg_parser.parse_args()
 
-    merged_df = get_merged_sources_df(args.fetch)
-    load_to_sql(merged_df)
+    drop_table()
+    create_table()
+
+    sources = [get_emsc_df, get_geofon_df, get_side_dataset_df, get_usgs_df]
+    for source in sources:
+        df = source(args.fetch)
+        load_to_sql(df)
 
     db = Database(DATABASE_URL)
 
@@ -53,6 +63,8 @@ def main():
         db.run_script("transform/column_month.sql")
         db.run_script("transform/add_region_column.sql")
         db.run_script("transform/remove_column.sql")
+
+    db.close()
 
 
 if __name__ == "__main__":
