@@ -65,6 +65,7 @@ def main():
         db.run_script("transform/trim_place_str.sql")
         db.run_script("transform/add_region_column.sql")
         db.run_script("transform/remove_column.sql")
+        db.run_script("transform/create_indexes.sql")
 
     db.close()
 
