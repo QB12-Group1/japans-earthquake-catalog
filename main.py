@@ -51,6 +51,7 @@ def main():
         db.run_script("transform/clean_report_anomalies.sql")
 
         db.run_script("transform/column_month.sql")
+        db.run_script("transform/add_region_column.sql")
         db.run_script("transform/remove_column.sql")
 
 
