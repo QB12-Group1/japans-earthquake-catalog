@@ -66,6 +66,7 @@ def main():
         db.run_script("transform/add_region_column.sql")
         db.run_script("transform/remove_column.sql")
         db.run_script("transform/create_indexes.sql")
+        db.run_script("transform/categorize_by_mag.sql")
 
     db.close()
 
