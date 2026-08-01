@@ -4,8 +4,8 @@ from datetime import datetime
 import pandas as pd
 
 
-def transform_genfon_data() -> pd.DataFrame:
-    raw_rows = pd.read_csv("data/raw/geofon.csv", encoding="utf-8")
+def transform_geofon_data(path: str = "data/raw/genfon.csv") -> pd.DataFrame:
+    raw_rows = pd.read_csv(path, encoding="utf-8")
     raw_rows = raw_rows.to_dict("records")
 
     processed_rows = []
@@ -43,10 +43,12 @@ def transform_genfon_data() -> pd.DataFrame:
     return pd.DataFrame(processed_rows)
 
 
-def export_transformed() -> None:
-    file_path = "data/processed/geofon.csv"
-    df = transform_genfon_data()
-    df.to_csv(file_path, index=False, encoding="utf-8")
+def export_transformed(
+    input_path="data/raw/geofon.csv", output_path="data/processed/geofon.csv"
+):
+    df = transform_geofon_data(input_path)
+
+    df.to_csv(output_path, index=False, encoding="utf-8")
 
 
 def load_transformed() -> pd.DataFrame:

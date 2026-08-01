@@ -1,44 +1,64 @@
-from pathlib import Path
+import os
+import tempfile
 from unittest import TestCase
 
-from src.transform.geofon_transform import transform_genfon_data
+import pandas as pd
 
-RAW_PATH = Path("data/raw/geofon.csv")
+from src.transform.geofon_transform import (
+    export_transformed,
+    transform_geofon_data,
+)
 
 
 class TestGeofonTransform(TestCase):
-    def setUp(self) -> None:
-        self._backup = RAW_PATH.read_text() if RAW_PATH.exists() else None
+    def setUp(self):
+        self.test_dir = tempfile.TemporaryDirectory()
 
-    def write_raw(self, *rows: str) -> None:
-        header = "time,latitude,longitude,depth,mag,place\n"
-        RAW_PATH.write_text(header + "\n".join(rows), encoding="utf-8")
+        self.input_filepath = os.path.join(self.test_dir.name, "geofon_raw.csv")
+        self.output_filepath = os.path.join(self.test_dir.name, "geofon_processed.csv")
 
-    def test_valid_row_is_transformed(self) -> None:
-        self.write_raw(
-            '"2026-07-09 12:58:57.9","35.6762°N","139.6503°E","10*","5.1","Near Tokyo, Japan"'
-        )
-        result = transform_genfon_data()
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result.iloc[0]["time"], "2026-07-09 12:58:57")
-        self.assertEqual(result.iloc[0]["latitude"], 35.6762)
-        self.assertEqual(result.iloc[0]["longitude"], 139.6503)
-        self.assertEqual(result.iloc[0]["depth"], "10")
+    def tearDown(self):
+        self.test_dir.cleanup()
 
-    def test_source_column_is_added(self):
-        self.write_raw(
-            '"2026-07-09 12:58:57.9","35.6762°N","139.6503°E","10*","5.1","Tokyo"'
-        )
-        result = transform_genfon_data()
+    def create_mock_geofon_file(self):
+        with open(self.input_filepath, "w", encoding="utf-8") as f:
+            f.write(
+                "time,latitude,longitude,depth,mag,place\n"
+                '2026-07-24 18:43:05.7,31.58°N,141.51°E,39*,4.6,"Southeast of Honshu, Japan"\n'
+                '2026-07-23 09:22:23.9,27.94°N,130.15°E,10*,5.1,"Ryukyu Islands, Japan"\n'
+                "2026-07-19 01:40:05.2,38.68°N,133.53°E,450*,4.3,Sea of Japan\n"
+            )
+
+    def test_transform_geofon_data(self):
+        self.create_mock_geofon_file()
+
+        result = transform_geofon_data(self.input_filepath)
+
+        self.assertIsInstance(result, pd.DataFrame)
+
+        self.assertEqual(len(result), 3)
+
+        self.assertEqual(result.iloc[0]["latitude"], 31.58)
+
+        self.assertEqual(result.iloc[1]["longitude"], 130.15)
+
+        self.assertEqual(result.iloc[2]["depth"], "450")
+
+        self.assertEqual(result.iloc[0]["time"], "2026-07-24 18:43:05")
+
         self.assertEqual(result.iloc[0]["source"], "GEOFON")
 
-    def test_empty_csv_returns_empty_dataframe(self) -> None:
-        self.write_raw()
-        result = transform_genfon_data()
-        self.assertEqual(len(result), 0)
+    def test_export_transformed(self):
+        self.create_mock_geofon_file()
 
-    def tearDown(self) -> None:
-        if self._backup is not None:
-            RAW_PATH.write_text(self._backup, encoding="utf-8")
-        else:
-            RAW_PATH.unlink()
+        export_transformed(self.input_filepath, self.output_filepath)
+
+        self.assertTrue(os.path.exists(self.output_filepath))
+
+        df = pd.read_csv(self.output_filepath, encoding="utf-8")
+
+        self.assertEqual(len(df), 3)
+
+        self.assertEqual(df.iloc[0]["source"], "GEOFON")
+
+        self.assertEqual(df.iloc[0]["latitude"], 31.58)
