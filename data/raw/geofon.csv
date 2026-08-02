@@ -1,5 +1,6 @@
 time,latitude,longitude,depth,mag,place
-2026-08-01 19:10:51.4,32.00°N,131.82°E,10*,5.2,"Kyushu, Japan"
+2026-08-02 00:45:38.8,40.18°N,142.58°E,48*,5.0,"Near East Coast of Honshu, Japan"
+2026-08-01 19:10:50.9,32.02°N,131.83°E,10*,5.2,"Kyushu, Japan"
 2026-08-01 12:47:24.3,32.78°N,130.60°E,10*,5.0,"Kyushu, Japan"
 2026-08-01 02:48:01.7,41.32°N,141.91°E,79*,5.5,"Hokkaido, Japan Region"
 2026-07-30 13:47:39.5,32.74°N,130.68°E,10*,5.0,"Kyushu, Japan"
@@ -34,6 +35,3 @@ time,latitude,longitude,depth,mag,place
 2026-07-03 04:04:48.3,26.09°N,125.76°E,10*,6.0,Northeast of Taiwan
 2026-07-03 03:53:24.5,26.14°N,125.71°E,10*,4.9,Northeast of Taiwan
 2026-07-03 01:44:52.2,38.84°N,142.19°E,38*,5.1,"Near East Coast of Honshu, Japan"
-2026-07-02 15:00:34.6,26.25°N,144.07°E,10*,4.8,"Bonin Islands, Japan Region"
-2026-07-02 11:48:29.8,37.24°N,139.28°E,146*,5.2,"Eastern Honshu, Japan"
-2026-07-02 04:48:22.1,40.71°N,142.31°E,62*,4.8,"Near East Coast of Honshu, Japan"

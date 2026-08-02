@@ -4,6 +4,7 @@ from config.settings import DATABASE_URL
 from src.database.loader import create_table, drop_table, load_to_sql
 from src.database.object import Database
 from src.database.report import get_table_report
+from src.plots.merge import plot_and_save
 from src.transform.merge import (
     get_emsc_df,
     get_geofon_df,
@@ -69,6 +70,7 @@ def main():
         db.run_script("transform/categorize_by_mag.sql")
         db.run_script("transform/clean_duplicates.sql")
 
+    plot_and_save(db)
     db.close()
 
 
