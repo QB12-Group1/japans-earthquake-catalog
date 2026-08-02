@@ -88,3 +88,38 @@ def earthquake_count_by_hour_line_chart(db: Database) -> None:
         dpi=300,
         bbox_inches="tight",
     )
+
+
+def magnitude_distribution_by_source_hist_chart(db: Database) -> None:
+    name = "magnitude_distribution_by_source_hist_chart"
+    result = db.run_script(f"analysis/plots/{name}.sql")
+    if not result:
+        return
+
+    magnitudes_by_source: dict[str, list[float]] = {}
+    for record in result:  # pyright: ignore
+        magnitudes_by_source.setdefault(record.source, []).append(record.magnitude)  # pyright: ignore
+
+    fig, ax = plt.subplots()
+
+    ax.hist(
+        magnitudes_by_source.values(),  # pyright: ignore
+        bins=15,
+        linewidth=0.5,
+        edgecolor="white",
+        stacked=True,
+        label=list(magnitudes_by_source.keys()),
+    )
+
+    ax.set(
+        title="Distribution of Earthquake Magnitudes by Source",
+        xlabel="Magnitude",
+        ylabel="Number of Earthquakes",
+    )
+    ax.legend(title="Source")
+    output_dir = BASE_DIR / "outputs"
+    plt.savefig(
+        output_dir / f"{name}.png",
+        dpi=300,
+        bbox_inches="tight",
+    )
