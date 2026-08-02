@@ -1,5 +1,5 @@
 time,latitude,longitude,depth,mag,magType,nst,gap,dmin,rms,net,id,updated,place,type,horizontalError,depthError,magError,magNst,status,locationSource,magSource
-2026-08-01T19:10:52.622Z,32.0078,131.9999,26.229,5.2,mww,83,88,1.409,1.16,us,us6000thhk,2026-08-01T19:31:08.040Z,"48 km ESE of Tsunō, Japan",earthquake,4.89,5.239,0.071,19,reviewed,us,us
+2026-08-01T19:10:52.622Z,32.0078,131.9999,26.229,5.2,mww,83,88,1.409,1.16,us,us6000thhk,2026-08-02T11:54:59.359Z,"48 km ESE of Tsunō, Japan",earthquake,4.89,5.239,0.071,19,reviewed,us,us
 2026-08-01T16:07:21.753Z,32.4488,130.4599,10,4.6,mb,79,108,0.937,0.64,us,us6000thgz,2026-08-01T22:19:05.681Z,"14 km WSW of Honmachi, Japan",earthquake,5.43,1.875,0.068,70,reviewed,us,us
 2026-08-01T12:47:23.253Z,32.6513,130.6285,10,4.9,mb,61,102,1.148,0.71,us,us6000thgg,2026-08-01T13:02:36.040Z,"3 km W of Matsubase, Japan",earthquake,5.49,1.794,0.056,98,reviewed,us,us
 2026-08-01T06:01:57.638Z,24.3042,142.5554,35,4.4,mb,45,138,10.383,0.57,us,us6000thev,2026-08-01T07:12:22.040Z,"Volcano Islands, Japan region",earthquake,12.45,1.933,0.102,28,reviewed,us,us
