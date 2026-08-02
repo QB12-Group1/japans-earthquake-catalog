@@ -22,7 +22,7 @@ class Database:
     def run_many(self, query: str, params=()) -> None:
         self._cursor.executemany(query, params)
 
-    def run_script(self, script_path: str) -> list[NamedTuple] | None:
+    def run_script(self, script_path: str) -> list[NamedTuple]:
         path = BASE_DIR / "sql" / script_path
         if not path.is_file():
             raise ValueError(f"Script file not found: '{path}'.")
@@ -31,7 +31,7 @@ class Database:
         self.run(script)
         if self._cursor.description:
             return self._cursor.fetchall()
-        return None
+        return []
 
     def one(self, query: str, params=()) -> NamedTuple | None:
         self._cursor.execute(query, params)
