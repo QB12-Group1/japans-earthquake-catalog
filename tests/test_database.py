@@ -206,13 +206,13 @@ class TestDataBaseQueries(TestCase):
     def test_row_count(self) -> None:
         self.db.run("SELECT * FROM earthquakes")
         row_count = self.db._cursor.rowcount
-        self.assertEqual(row_count, 5)
+        self.assertEqual(row_count, len(self.earthquakes))
 
     def test_table_report(self) -> None:
         Record = namedtuple(
             "Record", ["col_count", "col_name", "col_type", "total_records"]
         )
-        col_count, total_records = 11, 5
+        col_count, total_records = 11, len(self.earthquakes)
         expected = [
             Record(col_count, "id", "integer", total_records),
             Record(col_count, "time", "timestamp without time zone", total_records),
@@ -231,27 +231,67 @@ class TestDataBaseQueries(TestCase):
 
     def test_source_counts(self) -> None:
         Record = namedtuple("Record", ["source", "count"])
-        expected = [
-            Record("GEOFON", 2),
-            Record("DATASET", 1),
-            Record("EMSC", 1),
-            Record("USGS", 1),
-        ]
+
+        record_map = {}
+        for earthquake in self.earthquakes:
+            source = earthquake.source
+            if not record_map.get(source):
+                record_map[source] = {
+                    "source": source,
+                    "count": 0,
+                }
+
+            record_map[source]["count"] += 1
+
+        expected = [Record(**record) for _, record in record_map.items()]
         result = self.db.run_script("analysis/source_counts.sql")
-        self.assertSetEqual(set(expected), set(result))  # pyright: ignore[reportArgumentType]
+        self.assertSetEqual(set(expected), set(result))
 
     def test_dangerous_quakes(self) -> None:
-        expected = [self.earthquakes[3].to_record_namedtuple()]
+        expected = []
+        for earthquake in self.earthquakes:
+            if earthquake.mag > 6 and earthquake.depth < 50:
+                expected.append(earthquake.to_record_namedtuple())
         result = self.db.run_script("analysis/dangerous_quakes.sql")
         self.assertCountEqual(expected, result)
         self.assertSequenceEqual(expected, result)
 
     def test_recent_top10_destructive_quakes(self) -> None:
-        expected = sorted(self.earthquakes, key=lambda v: v.mag, reverse=True)
+        expected = sorted(self.earthquakes, key=lambda v: v.mag, reverse=True)[:10]
         result = self.db.run_script("analysis/recent_top10_destructive_quakes.sql")
         self.assertSequenceEqual(
             result, [earthquake.to_record_namedtuple() for earthquake in expected]
         )
+
+    def test_average_magnitude(self) -> None:
+        Record = namedtuple("Record", ["source", "region", "Average"])
+
+        record_map = {}
+        for earthquake in self.earthquakes:
+            key = earthquake.source, earthquake.region
+            if not record_map.get(key):
+                record_map[key] = {
+                    "count": 0,
+                    "source": earthquake.source.name,
+                    "region": earthquake.region,
+                    "Average": 0,
+                }
+
+            record_map[key]["count"] += 1
+            record_map[key]["Average"] = (
+                record_map[key]["Average"] + earthquake.mag
+            ) / record_map[key]["count"]
+
+        expected = [
+            Record(
+                source=record["source"],
+                region=record["region"],
+                Average=record["Average"],
+            )
+            for _, record in record_map.items()
+        ]
+        result = self.db.run_script("analysis/avg_magnitude.sql")
+        self.assertSetEqual(set(result), set(expected))
 
     def test_regional_report(self) -> None:
         Record = namedtuple(
@@ -266,46 +306,95 @@ class TestDataBaseQueries(TestCase):
                 "shallowest_depth",
             ],
         )
-        expected = [
-            Record(
-                "Pr imor'Ye",
-                1,
-                497.00,
-                4.20,
-                4.20,
-                497.00,
-                497.00,
-            ),
-            Record(
-                "Honmachi",
-                1,
-                10.00,
-                4.40,
-                4.40,
-                10.00,
-                10.00,
-            ),
-            Record(
-                "Kyushu",
-                2,
-                10.00,
-                4.95,
-                6.80,
-                10.00,
-                10.00,
-            ),
-            Record(
-                "Nagasaki",
-                1,
-                25.30,
-                4.90,
-                4.90,
-                25.30,
-                25.30,
-            ),
-        ]
+
+        record_map = {}
+        for earthquake in self.earthquakes:
+            region = earthquake.region
+            if not record_map.get(region):
+                record_map[region] = {
+                    "region": region,
+                    "earthquake_count": 0,
+                    "avg_depth": 0,
+                    "avg_magnitude": 0,
+                    "max_magnitude": 0,
+                    "deepest_depth": 0,
+                }
+
+            if not record_map[region].get("shallowest_depth"):
+                record_map[region]["shallowest_depth"] = earthquake.depth
+
+            record_map[region]["earthquake_count"] += 1
+            count = record_map[region]["earthquake_count"]
+
+            record_map[region]["avg_depth"] = (
+                record_map[region]["avg_depth"] + earthquake.depth
+            ) / count
+            record_map[region]["avg_magnitude"] = (
+                record_map[region]["avg_magnitude"] + earthquake.mag
+            ) / count
+
+            if earthquake.mag > record_map[region]["max_magnitude"]:
+                record_map[region]["max_magnitude"] = earthquake.mag
+
+            if earthquake.depth > record_map[region]["deepest_depth"]:
+                record_map[region]["deepest_depth"] = earthquake.depth
+
+            if earthquake.depth < record_map[region]["shallowest_depth"]:
+                record_map[region]["shallowest_depth"] = earthquake.depth
+
+        expected = [Record(**record) for _, record in record_map.items()]
         result = self.db.run_script("analysis/regional_quake_report.sql")
         self.assertSetEqual(set(expected), set(result))
+
+    def test_montly_stats(self) -> None:
+        Record = namedtuple("Record", ["month", "count"])
+
+        record_map = {}
+        for earthquake in self.earthquakes:
+            month = earthquake.month
+            if not record_map.get(month):
+                record_map[month] = {"month": month, "count": 0}
+
+            record_map[month]["count"] += 1
+
+        expected = [Record(**record) for _, record in record_map.items()]
+        result = self.db.run_script("analysis/monthly_stats.sql")
+        self.assertSequenceEqual(expected, sorted(result, key=lambda r: r.month))
+
+    def test_grouped_analysis(self) -> None:
+        Record = namedtuple(
+            "Record", ["month", "region", "category", "count", "avg_mag", "avg_depth"]
+        )
+
+        record_map = {}
+        for earthquake in self.earthquakes:
+            key = earthquake.source, earthquake.region
+            if not record_map.get(key):
+                record_map[key] = {
+                    "month": earthquake.month,
+                    "region": earthquake.region,
+                    "category": str(earthquake.category),
+                    "count": 0,
+                    "avg_mag": 0,
+                    "avg_depth": 0,
+                }
+
+            record_map[key]["count"] += 1
+            count = record_map[key]["count"]
+
+            record_map[key]["avg_depth"] = (
+                record_map[key]["avg_depth"] + earthquake.depth
+            ) / count
+            record_map[key]["avg_mag"] = (
+                record_map[key]["avg_mag"] + earthquake.mag
+            ) / count
+
+        expected = [Record(**record) for _, record in record_map.items()]
+        result = self.db.run_script("analysis/grouped_analysis.sql")
+        self.assertSetEqual(set(result), set(expected))
+
+    def mname(self) -> None:
+        pass
 
     def tearDown(self) -> None:
         with self.db.transaction():
