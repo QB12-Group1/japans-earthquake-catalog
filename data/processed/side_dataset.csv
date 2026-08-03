@@ -1,0 +1,37 @@
+time,latitude,longitude,depth,mag,place,status,notes,source
+2025-09-15 12:45:30,38.322,142.369,35.0,5.1,"off east coast of Honshu, Japan",reviewed,,DATASET
+2025-09-16 08:22:05,36.2048,138.2529,,,"near Nagano, Japan",automatic,Minor shock,DATASET
+2025-09-17 14:10:05,43.0618,141.3545,10.2,4.8,"Hokkaido, Japan region",reviewed,,DATASET
+2025-09-18 23:11:55,33.5904,130.4017,12.0,4.9,"Fukuoka, Japan",reviewed,,DATASET
+2025-09-19 05:00:00,35.6895,139.6917,,5.5," Tokyo, Japan ",reviewed,Data error?,DATASET
+2025-09-20 14:30:10,37.765,140.467,40.23,4.6,Fukushima Prefecture,automatic,,DATASET
+2025-09-21 02:15:45,34.6937,135.5023,45.1,5.2,osaka,reviewed,,DATASET
+2025-09-22 11:05:21,33.8562,132.7653,22.0,4.9,"Shikoku, Japan",reviewed,,DATASET
+2025-09-23 18:40:00,39.702,141.152,50.5,,Sendai region,automatic,Magnitude not recorded,DATASET
+2025-09-24 09:09:09,35.4437,139.638,30.0,5.0,Yokohama,,,DATASET
+2025-09-15 12:45:30,38.322,142.369,35.0,5.1,"off east coast of Honshu, Japan",reviewed,DUPLICATE,DATASET
+2025-09-26 01:25:33,26.2124,127.6809,15.0,4.7,"Okinawa, Ryukyu Islands",reviewed,,DATASET
+2025-09-27 15:30:00,35.6895,139.6917,40.0,5.3,Tokyo Prefecture,reviewed,,DATASET
+2025-09-28 16:55:41,40.822,140.747,60.1,5.0,"near Aomori, Japan",automatic,,DATASET
+2025-09-29 10:10:10,,138.5,10.0,4.5,Sea of Japan,reviewed,,DATASET
+2025-09-30 20:00:50,34.3852,132.4553,80.0,5.0,Hiroshima,automatic,,DATASET
+2025-10-01 00:12:34,35.0116,135.7681,10.0,4.4,"Kyoto, Japan",reviewed,,DATASET
+2025-10-01 00:12:34,35.0116,135.7681,10.0,4.4,"Kyoto, Japan",reviewed,,DATASET
+2025-10-02 13:01:02,32.7503,129.8779,25.3,4.9,Nagasaki,,Possible error,DATASET
+2025-10-03 21:21:21,34.6937,135.5023,,5.1,Osaka Prefecture,reviewed,,DATASET
+2025-10-04 08:45:15,35.1815,136.9066,35.2,4.8,"  Nagoya, Japan  ",automatic,,DATASET
+2025-10-05 19:33:00,37.25,138.75,10.0,4.6,near Niigata,reviewed,,DATASET
+2025-10-06 05:15:22,36.555,136.661,20.0,4.2,Kanazawa,automatic,,DATASET
+2025-10-07 11:30:00,34.068,131.473,33.0,5.3,Yamaguchi Prefecture,reviewed,Possible magnitude error,DATASET
+2025-10-08 14:20:10,31.596,130.554,,4.7,Kagoshima,reviewed,Depth missing,DATASET
+2025-10-09 09:05:00,35.6895,139.6917,2000.0,5.8,"Tokyo, Japan",automatic,Very deep,DATASET
+2025-10-10 01:01:01,38.268,140.869,,4.1,"  Sendai, Japan  ",reviewed,Invalid depth,DATASET
+2025-10-11 18:00:00,,,15.0,4.9,Offshore Chiba,automatic,Coordinates missing,DATASET
+2025-10-12 03:45:19,43.0618,141.3545,10.2,4.8,"Hokkaido, Japan region",reviewed,DUPLICATE,DATASET
+2025-10-13 12:12:12,34.228,134.046,18.0,4.0,Takamatsu,,,DATASET
+2025-10-14 22:30:00,35.4437,139.638,30.0,5.0,Yokohama,,DUPLICATE,DATASET
+2025-10-15 07:20:45,33.249,131.609,0.01,4.3,Oita Prefecture,automatic,,DATASET
+2025-10-16 15:00:18,35.68,139.75,33.0,5.0,central tokyo,automatic,,DATASET
+2025-10-17 10:00:00,,135.5,40.0,4.6,Kansai region,reviewed,Latitude missing,DATASET
+2025-10-18 23:59:59,26.2124,127.6809,15.0,4.7,"Okinawa, Ryukyu Islands",reviewed,Possible Duplicate,DATASET
+2025-10-19 04:40:04,35.1815,136.9066,35.2,4.8,"  Nagoya, Japan  ",automatic,Check quotes,DATASET

@@ -1,0 +1,70 @@
+time,latitude,longitude,depth,mag,magType,nst,gap,dmin,rms,net,eid,updated,place,type,horizontalError,depthError,magError,magNst,status,locationSource,magSource,source
+2026-08-01 19:10:52,32.0078,131.9999,26.229,5.2,mww,83,88,1.409,1.16,us,us6000thhk,2026-08-02T11:54:59.359Z,"48 km ESE of Tsunō, Japan",earthquake,4.89,5.239,0.071,19,reviewed,us,us,USGS
+2026-08-01 16:07:21,32.4488,130.4599,10.0,4.6,mb,79,108,0.937,0.64,us,us6000thgz,2026-08-01T22:19:05.681Z,"14 km WSW of Honmachi, Japan",earthquake,5.43,1.875,0.068,70,reviewed,us,us,USGS
+2026-08-01 12:47:23,32.6513,130.6285,10.0,4.9,mb,61,102,1.148,0.71,us,us6000thgg,2026-08-01T13:02:36.040Z,"3 km W of Matsubase, Japan",earthquake,5.49,1.794,0.056,98,reviewed,us,us,USGS
+2026-08-01 06:01:57,24.3042,142.5554,35.0,4.4,mb,45,138,10.383,0.57,us,us6000thev,2026-08-01T07:12:22.040Z,"Volcano Islands, Japan region",earthquake,12.45,1.933,0.102,28,reviewed,us,us,USGS
+2026-08-01 02:48:01,41.352,141.8958,82.29,5.5,mww,73,72,0.843,0.83,us,us6000thdk,2026-08-02T02:54:58.242Z,"57 km E of Mutsu, Japan",earthquake,5.05,6.09,0.086,13,reviewed,us,us,USGS
+2026-07-31 22:01:54,39.2159,143.2752,28.09,4.1,mb,28,194,2.313,1.02,us,us6000thci,2026-08-01T01:36:58.040Z,"117 km ESE of Yamada, Japan",earthquake,8.82,8.458,0.135,15,reviewed,us,us,USGS
+2026-07-31 12:58:40,28.2012,128.0296,10.0,4.6,mb,33,111,1.377,0.7,us,us6000th7y,2026-07-31T13:25:29.040Z,"95 km WNW of Amagi, Japan",earthquake,9.35,1.908,0.084,42,reviewed,us,us,USGS
+2026-07-30 16:20:48,40.2239,142.3617,51.287,4.3,mb,40,152,1.139,0.93,us,us6000th0s,2026-07-30T20:22:02.040Z,"48 km ENE of Noda, Japan",earthquake,5.11,7.589,0.108,24,reviewed,us,us,USGS
+2026-07-30 13:47:38,32.6877,130.642,10.0,5.0,mb,50,108,1.186,0.62,us,us6000tgy8,2026-07-30T23:42:00.870Z,"2 km WNW of Uto, Japan",earthquake,5.69,1.813,0.042,179,reviewed,us,us,USGS
+2026-07-29 20:16:35,32.4953,130.5159,11.68,4.8,mb,142,84,0.984,0.52,us,us6000tgt4,2026-07-29T22:00:19.040Z,"7 km W of Honmachi, Japan",earthquake,4.87,3.876,0.051,117,reviewed,us,us,USGS
+2026-07-29 14:02:34,32.5115,130.4901,10.0,4.6,mb,71,95,1.0,0.64,us,us6000tgn1,2026-07-29T15:38:28.040Z,"10 km W of Honmachi, Japan",earthquake,5.49,1.832,0.069,62,reviewed,us,us,USGS
+2026-07-29 13:19:36,32.34,130.4881,10.0,5.4,mww,79,74,0.829,0.51,us,us6000tgmx,2026-07-30T13:28:26.687Z,"11 km N of Tsunagi, Japan",earthquake,5.8,1.86,0.058,29,reviewed,us,us,USGS
+2026-07-29 11:47:53,32.7155,130.5047,10.0,4.4,mb,40,105,1.203,0.65,us,us6000tgmj,2026-07-29T13:03:30.040Z,"14 km ESE of Shimabara, Japan",earthquake,4.62,1.875,0.107,25,reviewed,us,us,USGS
+2026-07-28 14:01:56,32.5899,130.4935,2.283,4.8,mb,116,69,1.078,0.65,us,us6000tgd4,2026-07-29T16:16:19.040Z,"13 km NW of Honmachi, Japan",earthquake,6.06,4.22,0.054,105,reviewed,us,us,USGS
+2026-07-28 12:26:18,32.6443,130.7799,10.0,4.7,mb,66,99,1.165,0.63,us,us6000tgcq,2026-07-28T13:57:42.040Z,"8 km SSW of Mifune, Japan",earthquake,4.97,1.861,0.084,43,reviewed,us,us,USGS
+2026-07-28 10:09:38,32.43,130.675,10.0,4.4,mb,45,109,0.937,0.53,us,us6000tgc8,2026-07-28T10:53:41.040Z,"10 km SE of Honmachi, Japan",earthquake,5.49,1.897,0.097,31,reviewed,us,us,USGS
+2026-07-28 10:03:13,32.5747,130.753,10.0,4.4,mb,35,110,1.092,0.51,us,us6000tgc6,2026-07-28T10:29:13.040Z,"10 km ESE of Uki, Japan",earthquake,3.82,1.922,0.149,13,reviewed,us,us,USGS
+2026-07-28 08:18:54,32.3585,130.5429,10.0,4.9,mb,57,106,0.85,0.71,us,us6000tgbn,2026-07-28T08:36:09.040Z,"14 km NNE of Tsunagi, Japan",earthquake,6.1,1.872,0.062,82,reviewed,us,us,USGS
+2026-07-28 08:08:35,32.3529,130.5868,10.0,5.6,mww,71,82,0.849,1.37,us,us6000tgbm,2026-07-30T00:06:26.447Z,"16 km NE of Tsunagi, Japan",earthquake,5.12,1.85,0.058,29,reviewed,us,us,USGS
+2026-07-28 07:27:15,32.6817,130.7217,10.0,6.8,mww,102,39,1.191,1.38,us,us6000tgb9,2026-08-01T21:29:17.417Z,"2026 Uto, Japan Earthquake ",earthquake,5.42,1.822,0.046,45,reviewed,us,us,USGS
+2026-07-27 23:20:46,27.1167,140.1742,462.209,4.1,mb,31,147,8.543,0.83,us,us6000tg99,2026-07-28T01:11:52.040Z,"Bonin Islands, Japan region",earthquake,15.48,9.8,0.107,24,reviewed,us,us,USGS
+2026-07-27 19:03:38,28.1222,139.8936,426.772,4.5,mb,59,127,7.607,0.58,us,us6000tg6e,2026-07-27T19:44:25.040Z,"Bonin Islands, Japan region",earthquake,12.51,8.412,0.064,71,reviewed,us,us,USGS
+2026-07-27 18:40:22,41.1174,143.0938,47.852,4.2,mb,31,142,0.898,1.07,us,us6000tg64,2026-07-27T19:17:43.040Z,"113 km S of Honchō, Japan",earthquake,6.78,8.191,0.141,14,reviewed,us,us,USGS
+2026-07-26 05:58:52,38.4173,133.4886,446.051,4.4,mb,80,62,4.174,0.54,us,us7000t3f0,2026-07-26T06:13:36.040Z,"260 km N of Ama, Japan",earthquake,10.74,2.413,0.031,310,reviewed,us,us,USGS
+2026-07-24 23:18:21,33.3698,140.2775,73.068,4.4,mb,34,140,3.286,0.93,us,us7000t389,2026-07-25T00:35:11.040Z,"182 km SSE of Tateyama, Japan",earthquake,12.4,8.772,0.117,21,reviewed,us,us,USGS
+2026-07-24 18:43:04,31.4494,141.3858,35.0,4.5,mb,48,128,5.329,0.58,us,us7000t36e,2026-07-24T19:14:17.040Z,"Izu Islands, Japan region",earthquake,11.41,1.925,0.091,35,reviewed,us,us,USGS
+2026-07-23 13:18:22,32.1818,137.5247,390.066,4.0,mb,46,120,3.187,0.69,us,us7000t2p8,2026-07-23T16:33:08.040Z,"216 km SE of Kushimoto, Japan",earthquake,11.62,8.47,0.099,28,reviewed,us,us,USGS
+2026-07-23 09:22:22,27.8812,130.1887,10.0,5.1,mb,58,104,1.997,1.06,us,us7000t2n3,2026-07-23T09:42:03.040Z,"85 km SE of Tatsugō, Japan",earthquake,6.1,1.866,0.071,64,reviewed,us,us,USGS
+2026-07-22 11:11:32,37.2022,141.6529,47.601,4.4,mb,35,134,2.839,1.11,us,us7000t2fy,2026-07-22T13:48:07.040Z,"58 km ESE of Tomioka, Japan",earthquake,10.2,7.954,0.103,27,reviewed,us,us,USGS
+2026-07-20 23:18:22,45.5752,143.7832,302.727,4.0,mb,47,129,1.684,1.14,us,us7000t22v,2026-07-21T01:38:33.040Z,"117 km NE of Esashi, Japan",earthquake,12.11,8.409,0.067,60,reviewed,us,us,USGS
+2026-07-20 18:44:32,28.656,142.4492,10.0,4.4,mb,38,134,8.162,0.37,us,us7000t20b,2026-07-20T19:25:42.040Z,"Bonin Islands, Japan region",earthquake,12.6,1.928,0.097,31,reviewed,us,us,USGS
+2026-07-19 01:40:05,38.6177,133.4192,459.817,4.1,mb,42,77,4.327,0.72,us,us7000t1q1,2026-07-19T01:51:47.040Z,"281 km N of Ama, Japan",earthquake,14.28,12.247,0.07,55,reviewed,us,us,USGS
+2026-07-18 21:54:57,43.4944,132.5101,502.747,4.0,mb,40,55,0.8,0.6,us,us7000t1nw,2026-07-19T00:12:20.040Z,"4 km NE of Mnogoudobnoye, Russia",earthquake,5.27,9.429,0.113,21,reviewed,us,us,USGS
+2026-07-17 19:45:16,35.7796,141.1352,47.336,4.4,mb,66,126,2.487,0.94,us,us7000t1gh,2026-07-18T15:17:21.040Z,"27 km E of Hasaki, Japan",earthquake,10.12,7.092,0.083,50,reviewed,us,us,USGS
+2026-07-16 22:24:07,30.7245,131.3042,45.39,4.1,mb,18,131,1.07,0.27,us,us7000t29b,2026-08-02T03:33:58.040Z,"29 km E of Nishinoomote, Japan",earthquake,7.31,7.517,0.175,9,reviewed,us,us,USGS
+2026-07-16 21:49:42,30.7625,131.5099,35.0,5.2,mb,78,112,1.173,1.28,us,us7000t15t,2026-07-17T22:22:19.222Z,"48 km E of Nishinoomote, Japan",earthquake,3.51,1.901,0.041,191,reviewed,us,us,USGS
+2026-07-16 16:04:31,34.345,141.3281,10.0,4.5,mb,42,151,3.36,0.55,us,us7000t119,2026-07-24T20:05:02.040Z,"128 km SE of Katsuura, Japan",earthquake,12.73,1.902,0.104,31,reviewed,us,us,USGS
+2026-07-16 16:00:20,40.3415,142.2767,59.964,4.2,mb,26,156,1.026,0.94,us,us7000t117,2026-07-24T20:01:42.040Z,"46 km ENE of Kuji, Japan",earthquake,6.54,8.23,0.152,12,reviewed,us,us,USGS
+2026-07-16 00:01:08,35.7203,140.5349,59.688,4.7,mb,51,135,2.053,0.71,us,us7000t0uf,2026-07-16T02:40:35.054Z,"1 km WNW of Sōsa, Japan",earthquake,8.97,6.027,0.074,55,reviewed,us,us,USGS
+2026-07-15 12:29:40,40.3221,142.3054,63.294,4.6,mb,50,136,1.054,0.59,us,us7000t0mp,2026-07-15T12:55:12.040Z,"47 km ENE of Noda, Japan",earthquake,7.93,7.271,0.065,71,reviewed,us,us,USGS
+2026-07-14 11:20:32,40.1659,143.1121,32.347,4.4,mb,42,172,1.681,0.74,us,us7000t0aw,2026-07-14T13:11:30.040Z,"110 km E of Noda, Japan",earthquake,8.45,7.112,0.095,32,reviewed,us,us,USGS
+2026-07-14 08:07:30,40.1657,142.4075,44.48,4.9,mb,84,126,1.199,0.66,us,us7000t09z,2026-07-14T11:29:35.723Z,"50 km E of Noda, Japan",earthquake,7.49,6.822,0.034,270,reviewed,us,us,USGS
+2026-07-14 07:44:09,40.1338,143.1932,11.338,5.0,mww,56,96,1.751,0.9,us,us7000t09u,2026-07-14T08:00:45.040Z,"117 km E of Noda, Japan",earthquake,7.82,4.852,0.078,16,reviewed,us,us,USGS
+2026-07-13 17:59:07,37.7887,139.304,157.542,4.1,mb,50,140,1.52,0.46,us,us7000t1dc,2026-07-23T23:30:19.040Z,"8 km SE of Agano, Japan",earthquake,12.01,7.486,0.086,37,reviewed,us,us,USGS
+2026-07-13 17:58:26,37.8351,134.5873,412.374,4.0,mb,39,55,3.146,0.6,us,us7000t04s,2026-07-24T21:12:47.040Z,"215 km WNW of Anamizu, Japan",earthquake,12.46,9.425,0.119,19,reviewed,us,us,USGS
+2026-07-12 02:39:08,43.299,144.2269,113.357,4.4,mb,28,152,1.441,0.8,us,us7000szt3,2026-07-31T02:03:38.040Z,"29 km SW of Teshikaga, Japan",earthquake,8.27,7.86,0.126,18,reviewed,us,us,USGS
+2026-07-09 16:21:43,25.3558,125.14,97.874,4.7,mb,51,106,1.273,1.36,us,us7000sz8f,2026-07-18T19:30:51.040Z,"63 km NNW of Hirara, Japan",earthquake,7.81,7.891,0.061,88,reviewed,us,us,USGS
+2026-07-09 12:58:57,33.3425,134.9851,10.0,5.1,mb,43,108,1.004,0.77,us,us7000sz7n,2026-07-10T07:28:53.585Z,"50 km SW of Shirahama, Japan",earthquake,3.88,1.879,0.061,87,reviewed,us,us,USGS
+2026-07-08 14:33:47,40.033,142.0254,69.803,4.3,mb,15,134,1.053,0.49,us,us7000t0q4,2026-07-20T19:41:54.040Z,"19 km ESE of Noda, Japan",earthquake,9.83,7.797,0.168,10,reviewed,us,us,USGS
+2026-07-08 07:35:53,40.2393,141.8566,73.567,4.6,mb,57,134,0.816,0.84,us,us6000tavs,2026-07-29T08:11:44.040Z,"9 km NE of Kuji, Japan",earthquake,7.26,3.479,0.068,65,reviewed,us,us,USGS
+2026-07-06 17:09:03,40.1573,142.3995,54.901,4.6,mb,106,135,1.198,0.69,us,us6000tai6,2026-07-20T16:52:09.040Z,"49 km E of Noda, Japan",earthquake,6.53,6.795,0.057,92,reviewed,us,us,USGS
+2026-07-06 11:29:36,40.4327,141.832,65.876,4.6,mb,125,127,0.684,0.58,us,us6000taf3,2026-07-27T08:03:41.410Z,"27 km N of Kuji, Japan",earthquake,3.47,6.214,0.041,179,reviewed,us,us,USGS
+2026-07-05 17:03:15,29.7767,141.8968,10.0,4.1,mb,17,161,6.91,0.74,us,us7000szh0,2026-07-11T15:06:22.040Z,"Izu Islands, Japan region",earthquake,15.58,1.954,0.165,10,reviewed,us,us,USGS
+2026-07-04 17:44:46,29.7363,142.1893,10.0,4.4,mb,51,137,7.091,0.81,us,us6000ta5h,2026-07-12T13:39:01.040Z,"Izu Islands, Japan region",earthquake,12.2,1.906,0.082,43,reviewed,us,us,USGS
+2026-07-04 17:03:59,29.7353,142.0549,10.0,4.8,mb,82,121,7.023,0.67,us,us6000ta53,2026-07-12T13:31:29.040Z,"Izu Islands, Japan region",earthquake,11.16,1.878,0.061,82,reviewed,us,us,USGS
+2026-07-04 16:57:56,29.687,141.9852,27.564,4.6,mb,100,45,2.588,0.54,us,us6000ta52,2026-07-30T14:43:03.040Z,"Izu Islands, Japan region",earthquake,8.39,1.436,0.06,83,reviewed,us,us,USGS
+2026-07-04 11:27:03,40.5102,139.8123,162.218,4.0,mb,27,124,0.993,0.59,us,us7000szf1,2026-07-23T08:15:18.040Z,"17 km SW of Fukaura, Japan",earthquake,12.37,10.901,0.13,16,reviewed,us,us,USGS
+2026-07-04 05:03:52,32.073,142.4622,10.0,4.8,mb,74,127,4.966,0.57,us,us6000ta20,2026-07-27T06:47:33.040Z,"Izu Islands, Japan region",earthquake,8.78,1.864,0.065,73,reviewed,us,us,USGS
+2026-07-04 02:56:15,33.3871,136.8315,385.987,4.6,mb,81,132,1.965,0.72,us,us6000ta17,2026-07-21T22:57:06.040Z,"87 km SE of Kumano, Japan",earthquake,10.26,7.24,0.07,62,reviewed,us,us,USGS
+2026-07-03 19:58:23,41.0985,142.4451,56.195,4.5,mb,24,128,1.06,1.03,us,us7000sz78,2026-07-28T21:43:07.040Z,"100 km ENE of Misawa, Japan",earthquake,6.25,7.832,0.14,15,reviewed,us,us,USGS
+2026-07-03 14:37:27,40.3721,142.0452,55.089,4.1,mb,20,183,0.855,0.64,us,us7000sz73,2026-07-10T14:34:49.040Z,"31 km NE of Kuji, Japan",earthquake,6.74,9.764,0.213,6,reviewed,us,us,USGS
+2026-07-03 11:33:53,25.854,125.8119,10.0,4.2,mb,24,91,2.049,0.81,us,us6000t9u2,2026-07-24T12:05:26.040Z,"127 km NNE of Hirara, Japan",earthquake,6.9,1.87,0.167,10,reviewed,us,us,USGS
+2026-07-03 09:01:33,26.1073,125.5747,10.0,4.5,mb,47,72,2.105,0.38,us,us6000t9tm,2026-07-30T07:22:05.040Z,"146 km N of Hirara, Japan",earthquake,6.82,1.892,0.108,25,reviewed,us,us,USGS
+2026-07-03 07:33:10,26.0634,125.7206,10.0,4.5,mb,30,97,2.15,1.28,us,us7000sz6n,2026-07-29T07:34:46.040Z,"145 km NNE of Hirara, Japan",earthquake,5.33,1.77,0.135,16,reviewed,us,us,USGS
+2026-07-03 07:32:08,25.973,125.8784,10.0,4.2,mb,19,96,2.176,1.26,us,us7000sz6l,2026-07-29T07:40:09.040Z,"141 km NNE of Hirara, Japan",earthquake,8.57,1.939,0.176,9,reviewed,us,us,USGS
+2026-07-03 07:22:14,26.1183,125.9218,10.0,4.2,mb,27,98,2.225,1.04,us,us6000t9t2,2026-07-29T07:48:09.040Z,"158 km NNE of Hirara, Japan",earthquake,7.48,1.94,0.141,14,reviewed,us,us,USGS
+2026-07-03 04:04:48,26.0711,125.7417,10.0,6.1,mww,227,24,2.168,0.6,us,us6000t9sj,2026-07-29T03:29:33.137Z,"147 km NNE of Hirara, Japan",earthquake,6.23,1.724,0.046,46,reviewed,us,us,USGS
+2026-07-03 03:53:22,25.9579,125.8391,10.0,4.9,mww,49,78,2.141,0.71,us,us6000t9si,2026-07-29T02:40:36.040Z,"138 km NNE of Hirara, Japan",earthquake,6.72,1.89,0.093,11,reviewed,us,us,USGS
+2026-07-03 01:44:52,38.8392,142.2312,50.962,4.9,mww,146,90,2.145,0.53,us,us6000t9qx,2026-07-28T05:30:12.040Z,"51 km ESE of Ōfunato, Japan",earthquake,8.06,5.231,0.073,18,reviewed,us,us,USGS
