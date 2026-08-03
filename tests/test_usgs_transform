@@ -1,0 +1,65 @@
+import unittest
+
+import pandas as pd
+
+from src.transform.usgs_transform import transform_columns, transform_datetime
+
+
+class TestUSGSTransform(unittest.TestCase):
+    def test_valid_rows_are_transformed_to_shared_schema(self) -> None:
+        raw_df = pd.DataFrame(
+            {
+                "id": ["us7000example1", "us7000example2"],
+                "time": [
+                    "2024-01-15T08:30:45",
+                    " 2024-02-20T14:05:00 ",
+                ],
+                "mag": [5.2, 6.1],
+                "place": ["Near Tokyo, Japan", "Near Kyushu, Japan"],
+            }
+        )
+
+        result_df = transform_columns(transform_datetime(raw_df))
+
+        self.assertIn("eid", result_df.columns)
+        self.assertNotIn("id", result_df.columns)
+
+        self.assertIn("source", result_df.columns)
+        self.assertEqual(result_df["source"].tolist(), ["USGS", "USGS"])
+
+        self.assertEqual(
+            result_df["eid"].tolist(),
+            ["us7000example1", "us7000example2"],
+        )
+
+        self.assertEqual(
+            result_df["time"].tolist(),
+            [
+                "2024-01-15 08:30:45",
+                "2024-02-20 14:05:00",
+            ],
+        )
+
+        self.assertTrue(
+            result_df["time"].map(lambda value: isinstance(value, str)).all()
+        )
+
+        self.assertEqual(result_df["mag"].tolist(), [5.2, 6.1])
+        self.assertEqual(
+            result_df["place"].tolist(),
+            ["Near Tokyo, Japan", "Near Kyushu, Japan"],
+        )
+
+    def test_malformed_date_raises_value_error(self) -> None:
+        raw_df = pd.DataFrame(
+            {
+                "id": ["us-valid", "us-invalid"],
+                "time": [
+                    "2024-01-15T08:30:45",
+                    "not-a-valid-iso-date",
+                ],
+            }
+        )
+
+        with self.assertRaises(ValueError):
+            transform_datetime(raw_df)
