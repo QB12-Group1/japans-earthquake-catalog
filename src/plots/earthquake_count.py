@@ -123,3 +123,30 @@ def magnitude_distribution_by_source_hist_chart(db: Database) -> None:
         dpi=300,
         bbox_inches="tight",
     )
+
+
+def magnitude_over_time_scatter_chart(db: Database) -> None:
+    name = "magnitude_over_time_scatter_chart"
+    result = db.run_script(f"analysis/plots/{name}.sql")
+    if not result:
+        return
+
+    x = [record.time for record in result]  # pyright: ignore
+    y = [float(record.magnitude) for record in result]  # pyright: ignore
+
+    fig, ax = plt.subplots()
+    fig.autofmt_xdate(rotation=45, ha="right")
+
+    ax.scatter(x, y, alpha=0.5)
+    ax.set(
+        title="Earthquake Magnitude Over Time",
+        xlabel="Time",
+        ylabel="Magnitude",
+    )
+
+    output_dir = BASE_DIR / "outputs"
+    plt.savefig(
+        output_dir / f"{name}.png",
+        dpi=300,
+        bbox_inches="tight",
+    )
