@@ -150,3 +150,43 @@ def magnitude_over_time_scatter_chart(db: Database) -> None:
         dpi=300,
         bbox_inches="tight",
     )
+
+
+def magnitude_depth_boxplot(db: Database) -> None:
+    name = "magnitude_depth_boxplot"
+    result = db.run_script(f"analysis/plots/{name}.sql")
+    if not result:
+        return
+
+    shallow: list[float] = []
+    intermediate: list[float] = []
+    deep: list[float] = []
+
+    for record in result:  # pyright: ignore
+        magnitude = float(record.magnitude)  # pyright: ignore
+
+        if record.depth_group == "Shallow":  # pyright: ignore
+            shallow.append(magnitude)
+        elif record.depth_group == "Intermediate":  # pyright: ignore
+            intermediate.append(magnitude)
+        else:
+            deep.append(magnitude)
+
+    fig, ax = plt.subplots()
+
+    ax.boxplot(
+        [shallow, intermediate, deep],
+        tick_labels=["Shallow", "Intermediate", "Deep"],
+    )
+    ax.set(
+        title="Magnitude Distribution by Depth Group",
+        xlabel="Depth Group",
+        ylabel="Magnitude",
+    )
+
+    output_dir = BASE_DIR / "outputs"
+    plt.savefig(
+        output_dir / f"{name}.png",
+        dpi=300,
+        bbox_inches="tight",
+    )
