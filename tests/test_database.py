@@ -101,7 +101,7 @@ class TestDataBaseTransform(TestCase):
         self.db.close()
 
 
-class TestDB(TestCase):
+class TestDataBaseQueries(TestCase):
     def setUp(self) -> None:
         self.earthquakes = [
             Earthquake(
@@ -145,6 +145,19 @@ class TestDB(TestCase):
             ),
             Earthquake(
                 id=4,
+                time=datetime(2026, 7, 28, 7, 27, 14),
+                latitude=32.7,
+                longitude=130.7,
+                depth=10.0,
+                mag=6.8,
+                place="KYUSHU, JAPAN",
+                source=EarthquakeSource.GEOFON,
+                month=7,
+                region="Kyushu",
+                category=EarthquakeCategory.STRONG,
+            ),
+            Earthquake(
+                id=5,
                 time=datetime(2025, 10, 2, 13, 1, 2),
                 latitude=32.8,
                 longitude=129.9,
@@ -193,13 +206,13 @@ class TestDB(TestCase):
     def test_row_count(self) -> None:
         self.db.run("SELECT * FROM earthquakes")
         row_count = self.db._cursor.rowcount
-        self.assertEqual(row_count, 4)
+        self.assertEqual(row_count, 5)
 
     def test_table_report(self) -> None:
         Record = namedtuple(
             "Record", ["col_count", "col_name", "col_type", "total_records"]
         )
-        col_count, total_records = 11, 4
+        col_count, total_records = 11, 5
         expected = [
             Record(col_count, "id", "integer", total_records),
             Record(col_count, "time", "timestamp without time zone", total_records),
@@ -214,28 +227,85 @@ class TestDB(TestCase):
             Record(col_count, "category", "text", total_records),
         ]
         result = self.db.run_script("report/table_info.sql")
-        self.assertEqual(set(expected), set(result))
+        self.assertSetEqual(set(expected), set(result))
 
     def test_source_counts(self) -> None:
         Record = namedtuple("Record", ["source", "count"])
         expected = [
-            Record("GEOFON", 1),
+            Record("GEOFON", 2),
             Record("DATASET", 1),
             Record("EMSC", 1),
             Record("USGS", 1),
         ]
         result = self.db.run_script("analysis/source_counts.sql")
-        self.assertEqual(set(expected), set(result))  # pyright: ignore[reportArgumentType]
+        self.assertSetEqual(set(expected), set(result))  # pyright: ignore[reportArgumentType]
 
     def test_dangerous_quakes(self) -> None:
+        expected = [self.earthquakes[3].to_record_namedtuple()]
         result = self.db.run_script("analysis/dangerous_quakes.sql")
-        self.assertCountEqual(result, [])  # pyright: ignore[reportArgumentType]
+        self.assertCountEqual(expected, result)
+        self.assertSequenceEqual(expected, result)
 
     def test_recent_top10_destructive_quakes(self) -> None:
         expected = sorted(self.earthquakes, key=lambda v: v.mag, reverse=True)
         result = self.db.run_script("analysis/recent_top10_destructive_quakes.sql")
-        result = [Earthquake(**record._asdict()) for record in result]  # pyright: ignore[reportOptionalIterable]
-        self.assertSequenceEqual(result, expected)
+        self.assertSequenceEqual(
+            result, [earthquake.to_record_namedtuple() for earthquake in expected]
+        )
+
+    def test_regional_report(self) -> None:
+        Record = namedtuple(
+            "Record",
+            [
+                "region",
+                "earthquake_count",
+                "avg_depth",
+                "avg_magnitude",
+                "max_magnitude",
+                "deepest_depth",
+                "shallowest_depth",
+            ],
+        )
+        expected = [
+            Record(
+                "Pr imor'Ye",
+                1,
+                497.00,
+                4.20,
+                4.20,
+                497.00,
+                497.00,
+            ),
+            Record(
+                "Honmachi",
+                1,
+                10.00,
+                4.40,
+                4.40,
+                10.00,
+                10.00,
+            ),
+            Record(
+                "Kyushu",
+                2,
+                10.00,
+                4.95,
+                6.80,
+                10.00,
+                10.00,
+            ),
+            Record(
+                "Nagasaki",
+                1,
+                25.30,
+                4.90,
+                4.90,
+                25.30,
+                25.30,
+            ),
+        ]
+        result = self.db.run_script("analysis/regional_quake_report.sql")
+        self.assertSetEqual(set(expected), set(result))
 
     def tearDown(self) -> None:
         with self.db.transaction():
