@@ -1,6 +1,10 @@
+import re
+import unittest
 from collections import namedtuple
 from datetime import datetime
 from unittest import TestCase
+
+from psycopg2.errors import UndefinedColumn
 
 from config.settings import DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER
 from src.database.models import Earthquake, EarthquakeCategory, EarthquakeSource
@@ -11,37 +15,38 @@ class TestDataBaseTransform(TestCase):
     def setUp(self) -> None:
         url = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}_test"
         self.db = Database(url)
+        fields = [
+            "time",
+            "latitude",
+            "longitude",
+            "depth",
+            "mag",
+            "magType",
+            "nst",
+            "gap",
+            "dmin",
+            "rms",
+            "net",
+            "eid",
+            "updated",
+            "place",
+            "type",
+            "horizontalError",
+            "depthError",
+            "magError",
+            "magNst",
+            "status",
+            "locationSource",
+            "magSource",
+            "source",
+            "notes",
+        ]
         EarthquakeTuple = namedtuple(
             "Earthquake",
-            [
-                "time",
-                "latitude",
-                "longitude",
-                "depth",
-                "mag",
-                "magType",
-                "nst",
-                "gap",
-                "dmin",
-                "rms",
-                "net",
-                "eid",
-                "updated",
-                "place",
-                "type",
-                "horizontalError",
-                "depthError",
-                "magError",
-                "magNst",
-                "status",
-                "locationSource",
-                "magSource",
-                "source",
-                "notes",
-            ],
-            defaults=None,
+            fields,
+            defaults=[None for _ in range(len(fields))],
         )
-        self.earthquakes = [
+        self.all_earthquakes = [
             EarthquakeTuple(
                 time=datetime(2026, 7, 3, 14, 37, 27),
                 latitude=40.4,
@@ -59,6 +64,15 @@ class TestDataBaseTransform(TestCase):
                 mag=4.8,
                 place="Hokkaido, Japan region",
                 source="DATASET",
+            ),
+            EarthquakeTuple(  # duplicate of the above record
+                time=datetime(2025, 9, 17, 14, 10, 8),
+                latitude=43.1,
+                longitude=141.7,
+                depth=10.2,
+                mag=4.8,
+                place="Hokkaido, Japan region",
+                source="EMSC",
             ),
             EarthquakeTuple(
                 time=datetime(2026, 8, 1, 2, 48),
@@ -78,10 +92,29 @@ class TestDataBaseTransform(TestCase):
                 place="Sea of Japan",
                 source="GEOFON",
             ),
+            EarthquakeTuple(  # duplicate of the above record
+                time=datetime(2026, 7, 19, 1, 40, 5),
+                latitude=39.7,
+                longitude=133.5,
+                depth=450.0,
+                mag=4.3,
+                place="Sea of Japan",
+                source="DATASET",
+            ),
+            EarthquakeTuple(  # data anomaly
+                time=datetime(2025, 10, 9, 9, 5, 0),
+                latitude=35.6,
+                longitude=139.6,
+                depth=2000.0,
+                mag=5.8,
+                place="Tokyo, Japan",
+                source="DATASET",
+            ),
         ]
+        self.earthquakes = [self.all_earthquakes[i] for i in [0, 1, 3, 4, 5]]
         with self.db.transaction():
             self.db.run_script("schema.sql")
-            for earthquake in self.earthquakes:
+            for earthquake in self.all_earthquakes:
                 self.db.run(
                     "INSERT INTO earthquakes (time, latitude, longitude, depth, mag, place, source) VALUES (%s, %s, %s, %s, %s, %s, %s)",
                     (
@@ -94,6 +127,131 @@ class TestDataBaseTransform(TestCase):
                         earthquake.source,
                     ),
                 )
+
+            self.db.run_script("transform/alter_column_types.sql")
+            self.db.run_script("transform/round_float_values.sql")
+            self.db.run_script("transform/clean_incomplete_reports.sql")
+            self.db.run_script("transform/clean_reports_with_error.sql")
+            self.db.run_script("transform/clean_report_anomalies.sql")
+
+            self.db.run_script("transform/column_month.sql")
+            self.db.run_script("transform/trim_place_str.sql")
+            self.db.run_script("transform/add_region_column.sql")
+            self.db.run_script("transform/remove_column.sql")
+            self.db.run_script("transform/create_indexes.sql")
+            self.db.run_script("transform/categorize_by_mag.sql")
+            self.db.run_script("transform/clean_duplicates.sql")
+
+    def test_column_month_transform(self) -> None:
+        Record = namedtuple("Record", ["month"])
+        expected = [
+            Record(month=earthquake.time.month) for earthquake in self.earthquakes
+        ]
+        result = self.db.all("SELECT month FROM earthquakes")
+        self.assertSetEqual(set(expected), set(result))
+
+    def test_remove_column(self) -> None:
+        with self.assertRaises(UndefinedColumn), self.db.transaction():
+            self.db.one("SELECT locationSource FROM earthquakes")
+
+    def test_create_indexes(self) -> None:
+        Record = namedtuple("Record", ["indexname"])
+        expected = [
+            Record("earthquakes_pkey"),
+            Record("index_mag"),
+            Record("index_region"),
+            Record("index_time"),
+        ]
+        with self.db.transaction():
+            result = self.db.all(
+                """SELECT indexname FROM pg_indexes WHERE tablename = 'earthquakes' ORDER BY indexname"""
+            )
+            self.assertSetEqual(set(expected), set(result))
+
+    def test_trim_place_str(self) -> None:
+        result = self.db.all("SELECT place FROM earthquakes")
+        for record in result:
+            place = record._asdict()["place"]
+            self.assertFalse(place != place.strip())
+
+    def test_clean_duplicates(self) -> None:
+        result = self.db.all("SELECT * FROM earthquakes")
+        self.assertNotEqual(len(result), len(self.all_earthquakes))
+
+    def test_add_region_column(self) -> None:
+        Record = namedtuple("Record", ["region"])
+        expected = []
+        for earthquake in self.earthquakes:
+            region = earthquake.place.lower()
+            region = re.sub(",.+", "", region)
+            region = re.sub(".+,", "", region)
+            region = re.sub(".+of ", "", region)
+            region = region.title()
+            record = Record(region)
+            expected.append(record)
+        result = self.db.all("SELECT region FROM earthquakes")
+        self.assertSetEqual(set(expected), set(result))
+
+    def test_categorize_by_mag(self) -> None:
+        Record = namedtuple("Record", ["category"])
+        expected = []
+        for earthquake in self.earthquakes:
+            category = None
+            mag = earthquake.mag
+            if mag < 4:
+                category = EarthquakeCategory.WEAK
+            elif mag >= 4 and mag <= 6:
+                category = EarthquakeCategory.MODERATE
+            else:
+                category = EarthquakeCategory.STRONG
+
+            record = Record(category)
+            expected.append(record)
+        result = self.db.all("SELECT category FROM earthquakes")
+        self.assertSetEqual(set(expected), set(result))
+
+    def test_alter_column_types(self) -> None:
+        Record = namedtuple(
+            "Record", ["lat_type", "long_type", "mag_type", "depth_type", "time_type"]
+        )
+        expected = Record(
+            "double precision",
+            "double precision",
+            "double precision",
+            "double precision",
+            "timestamp without time zone",
+        )
+        result = self.db.one("""SELECT pg_typeof(latitude)  AS lat_type,
+       pg_typeof(longitude) AS long_type,
+       pg_typeof(mag)       AS mag_type,
+       pg_typeof(depth)     AS depth_type,
+       pg_typeof(time)      AS time_type
+FROM earthquakes
+LIMIT 1""")
+        self.assertEqual(expected, result)
+
+    def test_round_float_values(self) -> None:
+        expected = self.earthquakes[0]._asdict()
+        expected = {
+            "latitude": str(expected["latitude"]),
+            "longitude": str(expected["longitude"]),
+            "depth": str(expected["depth"]),
+            "mag": str(expected["mag"]),
+        }
+        result = self.db.one("""SELECT latitude,
+       longitude,
+       mag,
+       depth
+FROM earthquakes
+ORDER BY id
+LIMIT 1""")
+        if not result:
+            self.fail("Table is empty.")
+        result = result._asdict()
+        for k, v in result.items():
+            v = round(v, 1)
+            result[k] = str(v)
+        self.assertDictEqual(expected, result)
 
     def tearDown(self) -> None:
         with self.db.transaction():
@@ -393,10 +551,33 @@ class TestDataBaseQueries(TestCase):
         result = self.db.run_script("analysis/grouped_analysis.sql")
         self.assertSetEqual(set(result), set(expected))
 
-    def mname(self) -> None:
-        pass
+    def test_clean_report_anomalies(self) -> None:
+        for record in self.db.all("SELECT depth FROM earthquakes"):
+            depth = record._asdict()["depth"]
+            self.assertFalse(depth <= 1 or depth >= 750)
+
+    def test_clean_incomplete_reports(self) -> None:
+        for record in self.db.all(
+            "SELECT latitude, longitude, depth, mag FROM earthquakes"
+        ):
+            record = record._asdict()
+            self.assertFalse(
+                record["latitude"] is None
+                or record["longitude"] is None
+                or record["depth"] is None
+                or record["mag"] is None
+            )
+
+    def test_clean_reports_with_error(self) -> None:
+        for record in self.db.all("SELECT depth, mag FROM earthquakes"):
+            record = record._asdict()
+            self.assertFalse(record["depth"] == 0 or record["mag"] == 0)
 
     def tearDown(self) -> None:
         with self.db.transaction():
             self.db.run("DROP TABLE IF EXISTS earthquakes")
         self.db.close()
+
+
+if __name__ == "__main__":
+    unittest.main()
