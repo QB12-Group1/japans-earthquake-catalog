@@ -48,31 +48,31 @@ This project aggregates data from the following global seismic networks:
 ### 1. Installation
 Clone the repository and install dependencies using `uv`:
 
-\`\`\`bash
+```bash
 uv sync
-\`\`\`
+```
 
 ### 2. Configuration
 Copy the environment template and set your database credentials:
 
-\`\`\`bash
+```bash
 cp .env.example .env
 # Edit .env with your PostgreSQL credentials
-\`\`\`
+```
 
 ### 3. Execution
 Run the main pipeline to process data:
 
-\`\`\`bash
+```bash
 uv run main.py
-\`\`\`
+```
 
 ### 4. Running Tests
 Ensure data integrity by running the test suite:
 
-\`\`\`bash
+```bash
 uv run -m unittest discover tests
-\`\`\`
+```
 
 ---
 
